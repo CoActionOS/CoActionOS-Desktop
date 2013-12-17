@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/data">
+        <file>CStyle.css</file>
+        <file>fontawesome-webfont.ttf</file>
+        <file>icons/16x16/black/iconCaretDown.png</file>
+        <file>icons/16x16/black/iconCaretLeft.png</file>
+        <file>icons/16x16/black/iconCaretRight.png</file>
+        <file>icons/16x16/black/iconCaretUp.png</file>
+        <file>icons/16x16/black/iconChevronDown.png</file>
+        <file>icons/16x16/black/iconChevronUp.png</file>
+        <file>icons/20x16/black/iconCheck.png</file>
+        <file>icons/20x16/black/iconCheckEmpty.png</file>
+        <file>icons/20x16/black/iconLock.png</file>
+        <file>icons/20x16/black/iconSignBlank.png</file>
+        <file>icons/20x16/black/iconUnlock.png</file>
+        <file>icons/20x16/lightgray/iconCheck.png</file>
+        <file>icons/20x16/lightgray/iconCheckEmpty.png</file>
+        <file>icons/20x16/lightgray/iconLock.png</file>
+        <file>icons/20x16/lightgray/iconSignBlank.png</file>
+        <file>icons/20x16/lightgray/iconUnlock.png</file>
+    </qresource>
+</RCC>

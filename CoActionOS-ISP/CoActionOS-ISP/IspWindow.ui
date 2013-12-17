@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>IspWindow</class>
+ <widget class="QWidget" name="IspWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ISP</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="margin">
+    <number>6</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="LpcIsp" name="lpc">
+      <attribute name="title">
+       <string>LPC</string>
+      </attribute>
+     </widget>
+     <widget class="Stm32Isp" name="stm32">
+      <attribute name="title">
+       <string>STM32</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Stm32Isp</class>
+   <extends>QWidget</extends>
+   <header location="global">Stm32Isp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LpcIsp</class>
+   <extends>QWidget</extends>
+   <header location="global">LpcIsp.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

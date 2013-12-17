@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UsblinkInterface</class>
+ <widget class="QWidget" name="UsblinkInterface">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>631</width>
+    <height>508</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTabWidget" name="tabs">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>611</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="programmerTab">
+    <attribute name="title">
+     <string>Programmer</string>
+    </attribute>
+    <widget class="SerialProgrammer" name="programmerWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>-1</y>
+       <width>611</width>
+       <height>461</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="serialPortTab">
+    <attribute name="title">
+     <string>Serial Port</string>
+    </attribute>
+    <widget class="SerialPort" name="serialPortWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>-1</y>
+       <width>611</width>
+       <height>461</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SerialProgrammer</class>
+   <extends>QWidget</extends>
+   <header>SerialProgrammer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SerialPort</class>
+   <extends>QWidget</extends>
+   <header>SerialPort.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

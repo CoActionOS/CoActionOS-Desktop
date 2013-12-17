@@ -1,0 +1,17 @@
+
+QLabel {
+    margin-top: 3px;
+}
+
+QCheckBox {
+    margin-top: 5px;
+}
+
+
+QTabBar::tab {
+     margin-left: 15px;
+}
+
+QPushButton {
+    margin-top: 5px;
+}
