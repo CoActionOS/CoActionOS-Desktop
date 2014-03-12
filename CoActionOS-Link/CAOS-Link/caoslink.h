@@ -13,23 +13,19 @@
  * CoActionOS Link is a graphical application that allows developers to program and debug embedded systems
  * running CoActionOS.
  *
- * \image html CoActionOSLinkScreen.png
- *
  * \section DEPEND Dependencies
  *
  * CoActionOS Link requires the following packages to build:
- * - Qt from Nokia
- * - HWPL USB Link Library
+ * - Qt from Digia
+ * - CoActionOS HWPL Link Library
+ * - CoActionOS Qt SDK
  */
 
-/*! \page REVISIONS Revisions History
- *
- */
 
 #ifndef CAOSLINK_H
 #define CAOSLINK_H
 
-#define COACTIONOS_LINK_VERSION "1.3.1"
+#define COACTIONOS_LINK_VERSION "1.3.2"
 #include <QMainWindow>
 #include <QString>
 #include <QProgressBar>
