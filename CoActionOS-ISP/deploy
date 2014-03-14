@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION=$1
-QTSDKPATH=/Users/tgil/Qt5.1.1/5.1.1/clang_64/bin
+QTSDKPATH=/Users/tgil/Qt5.2.0/5.2.0/clang_64/bin
 APP=CoActionOS-ISP
 TEMPDIR=$APP
 SIGNATURE=CoActionOS,\ Inc
@@ -52,15 +52,6 @@ echo "Move application bundle"
 mv ./$APP.app ./$TEMPDIR
 if [ "$?" -ne "0" ]; then
 	echo "Failed to move CoActionOS-Link.app"
-	exit 1
-fi
-
-echo "Sign the code"
-#This signs the code
-echo "Sign Code with $SIGNATURE"
-codesign -s "$SIGNATURE" -f ./$TEMPDIR/$APP.app
-if [ "$?" -ne "0" ]; then
-	echo "Failed to sign app bundle"
 	exit 1
 fi
 
