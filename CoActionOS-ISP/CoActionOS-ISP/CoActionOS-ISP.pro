@@ -31,7 +31,7 @@ FORMS    += CaosIsp.ui \
     Console.ui
 
 macx {
-    ICON = CoActionOS-ISP-Logo.icns
+    ICON = ./CoActionOS-ISP-Logo.icns
     INCLUDEPATH = /usr/local/CoActionOS/include /usr/local/include
     LIBS += -L/usr/local/CoActionOS/lib
 }
