@@ -17,7 +17,16 @@
    <property name="spacing">
     <number>4</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>4</number>
+   </property>
+   <property name="topMargin">
+    <number>4</number>
+   </property>
+   <property name="rightMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
     <number>4</number>
    </property>
    <item>
@@ -38,7 +47,16 @@
        <property name="spacing">
         <number>0</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -161,6 +179,13 @@
             <widget class="QCheckBox" name="optionsRamCheckBox">
              <property name="text">
               <string>RAM</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stackLabel">
+             <property name="text">
+              <string>STACK</string>
              </property>
             </widget>
            </item>

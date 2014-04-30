@@ -32,18 +32,12 @@ private slots:
   void connected(bool);
   void addProject(QString name);
   void projectSelected(QString name);
-
   void installPathUpdated(void);
-
   void on_installButton_clicked();
   void on_uninstallButton_clicked();
-
   void on_optionsStartupCheckBox_clicked(bool checked);
-
   void on_optionsRamCheckBox_clicked(bool checked);
-
   void on_optionsRunCheckBox_clicked(bool checked);
-
   void on_dataSizeSpinBox_valueChanged(int arg1);
 
 private:
@@ -51,6 +45,11 @@ private:
   int installApp();
   QString projectRunPath(void);
 
+  bool parseDataSize(void);
+
+
+  int dataSize;
+  int bssSize;
 
 
   Ui::CApplicationInstaller *ui;
