@@ -25,7 +25,7 @@
 #ifndef CAOSLINK_H
 #define CAOSLINK_H
 
-#define COACTIONOS_LINK_VERSION "1.3.2"
+#define COACTIONOS_LINK_VERSION "1.4.0-beta"
 #include <QMainWindow>
 #include <QString>
 #include <QProgressBar>
