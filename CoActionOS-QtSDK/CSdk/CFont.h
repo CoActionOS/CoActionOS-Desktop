@@ -48,7 +48,7 @@ public:
 
   static inline QString iconApplication(){ return iconBeaker(); }
   static inline QString iconKernel(){ return iconCog(); }
-  static inline QString iconPreferences(){ return iconCogs(); }
+  static inline QString iconPreferences(){ return iconWrench(); }
   static inline QString iconBuild(){ return iconWrench(); }
   static inline QString iconMake(){ return iconBuild(); }
   static inline QString iconConfigure(){ return iconCog(); }
@@ -58,6 +58,7 @@ public:
   static inline QString iconTerminal(){ return iconEdit(); }
   static inline QString iconConsole(){ return iconListAlt(); }
   static inline QString iconMonitor(){ return iconTasks(); }
+  static inline QString iconStack(){ return iconAlignJustify(); }
 
   static inline QString iconGlass(){ return (QChar(0xf000)); }
   static inline QString iconMusic(){ return (QChar(0xf001)); }
