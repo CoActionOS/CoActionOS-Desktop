@@ -55,6 +55,8 @@ Preferences::Preferences(QWidget *parent) :
   connect(ui->terminalLogFile->lineEdit(), SIGNAL(editingFinished()),
           this, SLOT(terminalLogFileLineEdit_editingFinished()));
 
+  connect(ui->terminalMaximumSizeLockCheckBox, SIGNAL(clicked(bool)), ui->terminalMaximumSizeSpinBox, SLOT(setEnabled(bool)));
+
   lastMaxSize = ui->terminalMaximumSizeSpinBox->value();
   qDebug("Preferences Init Complete");
 }

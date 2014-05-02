@@ -30,7 +30,10 @@ SOURCES += CSdk.cpp \
     CInstaller.cpp \
     CApplicationSettings.cpp \
     CKernelInstaller.cpp \
-    CKernelSettings.cpp
+    CKernelSettings.cpp \
+    CCheckbox.cpp \
+    CLabel.cpp \
+    CLock.cpp
 
 HEADERS += CSdk.h\
     CSdk_global.h \
@@ -50,7 +53,10 @@ HEADERS += CSdk.h\
     CApplicationSettings.h \
     CKernelInstaller.h \
     CKernelSettings.h \
-    CLinkPtr.h
+    CLinkPtr.h \
+    CCheckbox.h \
+    CLabel.h \
+    CLock.h
 
 FORMS += \
     CTerminal.ui \

@@ -62,7 +62,16 @@
        <property name="verticalSpacing">
         <number>6</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item row="4" column="0">
@@ -110,15 +119,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="terminalMaximumSizeLockCheckBox">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
+          <widget class="CLock" name="terminalMaximumSizeLockCheckBox">
            <property name="text">
-            <string/>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
+            <string>LOCK</string>
            </property>
           </widget>
          </item>
@@ -148,36 +151,24 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
-        <widget class="QCheckBox" name="terminalAppendModeCheckBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>On</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="terminalWarnOverwriteLabel">
          <property name="text">
           <string>Warn on Overwrite:</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
-        <widget class="QCheckBox" name="terminalWarnOverwriteCheckBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
+       <item row="7" column="1">
+        <widget class="CCheckbox" name="terminalAppendModeCheckBox">
          <property name="text">
           <string>On</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="CCheckbox" name="terminalWarnOverwriteCheckBox">
+         <property name="text">
+          <string>On</string>
          </property>
         </widget>
        </item>
@@ -225,31 +216,23 @@
    <header>CSdk/CLineEdit.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>CLock</class>
+   <extends>QLabel</extends>
+   <header>CSdk/CLock.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CCheckbox</class>
+   <extends>QLabel</extends>
+   <header>CSdk/CCheckbox.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>terminalMaximumSizeSpinBox</tabstop>
-  <tabstop>terminalMaximumSizeLockCheckBox</tabstop>
   <tabstop>savePreferencesButton</tabstop>
   <tabstop>loadPreferencesButton</tabstop>
   <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>terminalMaximumSizeLockCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>terminalMaximumSizeSpinBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>401</x>
-     <y>593</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>281</x>
-     <y>593</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
