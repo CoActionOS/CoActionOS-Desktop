@@ -39,6 +39,7 @@ private slots:
   void on_optionsRamCheckBox_clicked(bool checked);
   void on_optionsRunCheckBox_clicked(bool checked);
   void on_dataSizeSpinBox_valueChanged(int arg1);
+  void on_filesInstallButton_clicked();
 
 private:
   int install(void);
@@ -50,6 +51,8 @@ private:
 
   int dataSize;
   int bssSize;
+
+  bool copyDirectory(QString subdir);
 
 
   Ui::CApplicationInstaller *ui;

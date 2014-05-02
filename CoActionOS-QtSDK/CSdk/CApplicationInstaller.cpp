@@ -8,6 +8,7 @@
 #include "CApplicationSettings.h"
 #include "CInstaller.h"
 #include "CCompress.h"
+#include "CFileBrowser.h"
 
 CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     QWidget(parent),
@@ -24,12 +25,13 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     ui->optionsRunCheckBox->setToolTip("Run program after install completes");
     ui->optionsRamCheckBox->setToolTip("Install program in RAM");
     ui->optionsStartupCheckBox->setToolTip("Run program on startup");
+    ui->optionsFilesCheckBox->setToolTip("Install files with application");
 
     ui->dataSizeSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
     ui->dataSizeLockCheckBox->setObjectName("lock");
     ui->dataSizeLockCheckBox->setEnabled(true);
-    ui->dataSizeLockCheckBox->setToolTip("Lock/unlock program data size");
-    ui->dataSizeSpinBox->setToolTip("Size for program data");
+    ui->dataSizeLockCheckBox->setToolTip("Lock/unlock size of RAM");
+    ui->dataSizeSpinBox->setToolTip("Size of RAM (data/bss/stack) for application ");
 
     ui->uninstallButton->setObjectName("blueButton");
     ui->uninstallButton->setText(CFont::iconTrash());
@@ -37,6 +39,10 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     ui->installButton->setObjectName("blueButton");
     ui->installButton->setText(CFont::iconDownloadAlt());
     ui->installButton->setToolTip("Install Application");
+
+    ui->filesInstallButton->setObjectName("blueButton");
+    ui->filesInstallButton->setText(CFont::iconCopy());
+    ui->filesInstallButton->setToolTip("Install Associated Files");
 
     ui->installPath->setObjectName("unified");
     connect(ui->installPath->lineEdit(), SIGNAL(editingFinished()), this, SLOT(installPathUpdated()));
@@ -47,6 +53,8 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     connect(ui->installer, SIGNAL(addProject(QString)), this, SLOT(addProject(QString)));
     connect(ui->installer, SIGNAL(projectSelected(QString)), this, SLOT(projectSelected(QString)));
     //need to load the previously loaded workspace
+
+    connect(ui->dataSizeLockCheckBox, SIGNAL(clicked(bool)), ui->dataSizeSpinBox, SLOT(setEnabled(bool)));
 
     ui->installer->updateProjectList();
 
@@ -70,6 +78,7 @@ void CApplicationInstaller::setLink(CLink * d){
 void CApplicationInstaller::connected(bool arg1){
     ui->installButton->setEnabled(arg1);
     ui->uninstallButton->setEnabled(arg1);
+    ui->filesInstallButton->setEnabled(arg1);
 }
 
 void CApplicationInstaller::installPathUpdated(void){
@@ -105,12 +114,18 @@ void CApplicationInstaller::on_installButton_clicked()
     if ( install() != 0 ){
         return;
     } else {
+
+        if( ui->optionsFilesCheckBox->isChecked() == true ){
+            on_filesInstallButton_clicked();
+        }
+
         if ( ui->optionsRunCheckBox->isChecked() ){
             emit runApplication( projectRunPath() );
         }
     }
     CNotify::updateProgress(0, 0, false);
-    CNotify::updateStatus("Install complete");
+    CNotify::updateStatus("App install complete");
+
 }
 
 void CApplicationInstaller::on_uninstallButton_clicked()
@@ -316,6 +331,7 @@ void CApplicationInstaller::on_optionsStartupCheckBox_clicked(bool checked)
     CApplicationSettings settings(ui->installer->projectPath());
     if( checked == true ){
         ui->optionsRamCheckBox->setChecked(!checked);
+    } else {
     }
     ui->optionsRamCheckBox->setEnabled(!checked);
     settings.setStartup(checked);
@@ -413,3 +429,32 @@ bool CApplicationInstaller::parseDataSize(void){
 
 }
 
+
+void CApplicationInstaller::on_filesInstallButton_clicked()
+{
+    bool ret;
+    QString targetDir;
+    QDir dir(ui->installer->projectPath() + "/data");
+    QStringList dirs;
+    int i;
+    CNotify notify;
+
+    //copy the folder structure in project/data to the device
+    dirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for(i=0; i < dirs.size(); i++){
+        if( dirs.at(i) == "flash" ){
+            targetDir = "/app/flash";
+        } else {
+            targetDir = "/" + dirs.at(i);
+        }
+        ret = CFileBrowser::copyDirToDevice(link(), dir.path() + "/" + dirs.at(i), targetDir);
+        if( ret == false ){
+            qDebug("exec error");
+            notify.execError("Failed to copy files in data/" + dirs.at(i));
+            return;
+        }
+    }
+
+    CNotify::updateStatus("File install complete");
+
+}

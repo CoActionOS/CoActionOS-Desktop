@@ -21,6 +21,9 @@ public:
     void loadDirectory(QTreeWidgetItem * treeItem);
     void setLink(CLink * d);
 
+    static bool copyFileToDevice(CLink * d, QString filename, QString targetDir);
+    static bool copyDirToDevice(CLink * d, QString srcDir, QString targetDir);
+
 signals:
     void runApplication(QString path);
 
