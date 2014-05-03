@@ -3,6 +3,8 @@
 
 CCheckbox::CCheckbox(QWidget * parent) : CLabel(parent){
     connect(this, SIGNAL(clicked()), this, SLOT(on_clicked()));
+
+    this->setAlignment(Qt::AlignLeft);
 }
 
 
@@ -18,7 +20,7 @@ void CCheckbox::refresh(){
     } else {
         icon = CFont::iconCheckEmpty();
     }
-    CLabel::setText(CFont::fontAwesome(icon) + text_);
+    CLabel::setText(CFont::fontAwesome(icon) + " " + text_);
 }
 
 

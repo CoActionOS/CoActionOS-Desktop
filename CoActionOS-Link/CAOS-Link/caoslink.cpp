@@ -17,53 +17,63 @@
 #include "CaosTerminal.h"
 #include "CaosInterface.h"
 
+
+
 /*! \details This is the main window constructor.  It initializes the GUI as
  * as well as the USB Link driver.
  *
  *
  */
 Caoslink::Caoslink(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::Caoslink)
+    QMainWindow(parent),
+    ui(new Ui::Caoslink)
 {
-  CNotify notify;
-  notify.updateStatus("");
-  qDebug("CAOS Init");
-  CLink * linkDevice;
-  QCoreApplication::setOrganizationName("CoActionOS, Inc");
-  QCoreApplication::setOrganizationDomain("coactionos.com");
-  QCoreApplication::setApplicationName("CoActionOS Link");
-  QCoreApplication::setApplicationVersion(COACTIONOS_LINK_VERSION);
+    CNotify notify;
+    notify.updateStatus("");
+    qDebug("CAOS Init");
+    CLink * linkDevice;
+    QCoreApplication::setOrganizationName("CoActionOS, Inc");
+    QCoreApplication::setOrganizationDomain("coactionos.com");
+    QCoreApplication::setApplicationName("CoActionOS Link");
+    QCoreApplication::setApplicationVersion(COACTIONOS_LINK_VERSION);
 
-  CFont::init();
-  link_set_debug(1);
+    CFont::init();
+    link_set_debug(1);
 
-  ui->setupUi(this);
-  linkDevice = ui->connectWidget->clink();
-  ui->caosInterface->setLink(linkDevice);
-  ui->progressBar->setVisible(false);
+    ui->setupUi(this);
+    linkDevice = ui->connectWidget->clink();
+    ui->caosInterface->setLink(linkDevice);
+    ui->progressBar->setVisible(false);
 
-  //Connect link thread
-  connect(linkDevice, SIGNAL(reconnectSignal(bool)), ui->connectWidget, SLOT(connectRequested(bool)));
-  ui->connectWidget->setObjectName("connectWidget");
-  ui->statusBar->setObjectName("statusBar");
+    //Connect link thread
+    connect(linkDevice, SIGNAL(reconnectSignal(bool)), ui->connectWidget, SLOT(connectRequested(bool)));
+    ui->connectWidget->setObjectName("connectWidget");
+    ui->statusBar->setObjectName("statusBar");
 
-  QFile file(":/data/CStyle.css");
-  if(file.open(QFile::ReadOnly)) {
-      QString StyleSheet = QLatin1String(file.readAll());
-      file.close();
+    QFile file(":/data/CStyle.css");
+    if(file.open(QFile::ReadOnly)) {
+        QString StyleSheet = QLatin1String(file.readAll());
+        file.close();
 #ifdef Q_WS_WIN
-      file.setFileName(":/data/CStyle-win32.css");
-      if( file.open(QFile::ReadOnly)){
-          StyleSheet += QLatin1String(file.readAll());
-          file.close();
+        file.setFileName(":/data/CStyle-win32.css");
+        if( file.open(QFile::ReadOnly)){
+            StyleSheet += QLatin1String(file.readAll());
+            file.close();
         }
 #endif
-      qApp->setStyleSheet(StyleSheet);
+
+        file.setFileName(":/data/CStyle-large.css");
+        if( file.open(QFile::ReadOnly)){
+            StyleSheet += QLatin1String(file.readAll());
+            file.close();
+        }
+        qApp->setStyleSheet(StyleSheet);
     }
 
-  CNotify::setUpdateObjects(ui->statusBar, ui->progressBar);
-  qDebug("CAOS Init Complete");
+
+
+    CNotify::setUpdateObjects(ui->statusBar, ui->progressBar);
+    qDebug("CAOS Init Complete");
 
 }
 
@@ -73,13 +83,13 @@ Caoslink::Caoslink(QWidget *parent) :
  *
  */
 Caoslink::~Caoslink(){
-  CLink * linkDevice;
-  //wait for any pending operation on the device to complete
-  linkDevice = ui->connectWidget->clink();
-  if ( linkDevice->isConnected() == true ){
-      linkDevice->exit();
+    CLink * linkDevice;
+    //wait for any pending operation on the device to complete
+    linkDevice = ui->connectWidget->clink();
+    if ( linkDevice->isConnected() == true ){
+        linkDevice->exit();
     }
-  delete ui;
+    delete ui;
 }
 
 

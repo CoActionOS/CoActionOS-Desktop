@@ -46,6 +46,16 @@ QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidge
     vertical-align:middle;
 }
 
+QLineEdit {
+    margin-top: 8px;
+}
+
+CCheckbox {
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+
 QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidget, QProgressBar {
     border: 1px solid #bbbbbb;
     border-radius: 4px;
@@ -714,13 +724,11 @@ QTreeView::branch:closed:has-children:has-siblings:selected
 QTreeView::branch:closed:has-children:!has-siblings,
 QTreeView::branch:closed:has-children:has-siblings {
          border-image: none;
-         image: url(:/data/icons/16x16/black/iconCaretRight.png);
 }
 
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
          border-image: none;
-         image: url(:/data/icons/16x16/black/iconCaretDown.png);
          background: none;
 }
 

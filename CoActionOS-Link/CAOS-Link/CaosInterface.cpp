@@ -51,6 +51,7 @@ CaosInterface::CaosInterface(QWidget *parent) :
   infoTimer.start();
 
   qDebug("CAOS Interface Init Complete");
+
 }
 
 CaosInterface::~CaosInterface(){
