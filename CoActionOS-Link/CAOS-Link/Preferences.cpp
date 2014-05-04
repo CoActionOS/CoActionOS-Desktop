@@ -42,8 +42,8 @@ Preferences::Preferences(QWidget *parent) :
   ui->terminalLogFile->setObjectName("unified");
   ui->terminalLogFile->setBrowseVisible(true);
   ui->terminalLogFile->setBrowseMode(QFileDialog::AnyFile, QFileDialog::AcceptSave);
-  ui->terminalLogFileLabel->setObjectName("acceptLabel");
-  ui->terminalLogFileLabel->setEnabled(false);
+
+  ui->terminalLogFileStatusLabel->setObjectName("warningLabel");
 
   this->connected(false);
   loadPreferences();
@@ -152,20 +152,31 @@ void Preferences::setCurrentKernelProject(QString value){
 void Preferences::terminalLogFileLineEdit_editingFinished(){
   QFileInfo info;
   if( ui->terminalLogFile->lineEdit()->text() == "" ){
-      ui->terminalLogFileLabel->setEnabled(false);
+      //ui->terminalLogFileLabel->setEnabled(false);
+      ui->terminalLogFileStatusLabel->setText(CFont::fontAwesome(CFont::iconWarningSign()));
+      ui->terminalLogFileStatusLabel->setEnabled(false);
       return;
     }
 
   info.setFile(ui->terminalLogFile->lineEdit()->text());
   if( info.isDir() == true ){
+      ui->terminalLogFileStatusLabel->setText(CFont::fontAwesome(CFont::iconWarningSign()));
+      ui->terminalLogFileStatusLabel->setEnabled(false);
+      CNotify::updateStatus("Log file cannot be a directory");
       return;
     }
 
   if( info.dir().exists() == false ){
+      ui->terminalLogFileStatusLabel->setText(CFont::fontAwesome(CFont::iconWarningSign()));
+      ui->terminalLogFileStatusLabel->setEnabled(false);
+      CNotify::updateStatus("Log file directory does not exist");
       return;
     }
 
-  ui->terminalLogFileLabel->setEnabled(true);
+  //ui->terminalLogFileLabel->setEnabled(true);
+  ui->terminalLogFileStatusLabel->setText(CFont::fontAwesome(CFont::iconOkSign()));
+  ui->terminalLogFileStatusLabel->setEnabled(true);
+
 
   settings.setKey("KEY_TERMINALLOGFILE",
          ui->terminalLogFile->lineEdit()->text());

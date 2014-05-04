@@ -23,7 +23,7 @@ CConnect::CConnect(QWidget *parent) :
   ui->connectButton->setToolTip("Connect to device");
   ui->disconnectButton->setToolTip("Disconnect from device");
   ui->refreshButton->setToolTip("Refresh the serial number list");
-  ui->snComboBox->setToolTip("Serial Number List");
+  ui->snComboBox->setToolTip("Device serial number list");
 
   errorSuppression = false;
 

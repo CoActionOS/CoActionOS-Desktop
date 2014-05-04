@@ -20,7 +20,7 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     ui->setupUi(this);
     //loadSettings();
     //updateNeeded = false;
-    ui->uninstallButton->setToolTip("Uninstall appication");
+    ui->uninstallButton->setToolTip("Uninstall application");
 
     ui->optionsRunCheckBox->setToolTip("Run program after install completes");
     ui->optionsRamCheckBox->setToolTip("Install program in RAM");
@@ -42,7 +42,7 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
 
     ui->filesInstallButton->setObjectName("blueButton");
     ui->filesInstallButton->setText(CFont::iconCopy());
-    ui->filesInstallButton->setToolTip("Install Associated Files");
+    ui->filesInstallButton->setToolTip("Install associated files");
 
     ui->installPath->setObjectName("unified");
     connect(ui->installPath->lineEdit(), SIGNAL(editingFinished()), this, SLOT(installPathUpdated()));
@@ -58,8 +58,8 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
 
     ui->installer->updateProjectList();
 
-    ui->stackLabel->setToolTip("Max Stack Size");
-    ui->stackLabel->setObjectName("acceptLabel");
+    ui->stackLabel->setToolTip("Stack size");
+    ui->stackLabel->setObjectName("warningLabel");
 
     connected(false);
     qDebug("CApplicationInstaller Done");
@@ -369,14 +369,10 @@ void CApplicationInstaller::on_dataSizeSpinBox_valueChanged(int arg1)
 
         if( stackSize < 1024 ){
             ui->stackLabel->setEnabled(false);
-            if( stackSize < 256){
-                if( stackSize < 0 ){
-                    stackSize = 0;
-                }
-                ui->stackLabel->setText(CFont::fontAwesome(CFont::iconExclamationSign()) + " " + QString::number(stackSize));
-            } else {
-                ui->stackLabel->setText(CFont::fontAwesome(CFont::iconWarningSign()) + " " + QString::number(stackSize));
+            if( stackSize < 0 ){
+                stackSize = 0;
             }
+            ui->stackLabel->setText(CFont::fontAwesome(CFont::iconWarningSign()) + " " + QString::number(stackSize));
         } else {
             ui->stackLabel->setText(CFont::fontAwesome(CFont::iconStack()) + " " + QString::number(stackSize));
         }
