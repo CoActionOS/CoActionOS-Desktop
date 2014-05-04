@@ -44,6 +44,7 @@ QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidge
     font-size: 16px;
     color: #333333;
     vertical-align:middle;
+    border-radius: 4px;
 }
 
 QLineEdit {
@@ -161,51 +162,49 @@ QTabBar::tab:disabled {
 }
 
 
-QLabel#acceptLabel, QLabel#successLabel {
-    background: #dff0d8;
-    border-radius: 4px;
-    border: 1px solid #d6e9c6;
-    /*unix:border: 1px solid red;*/
-    color: #468847;
+QLabel#warningLabel:disabled  {
+    color: #a94442;
 }
 
+
+
 QLabel#acceptLabel:disabled, QLabel#alertErrorLabel, QLabel#alertWarningLabel {
-    background: #f2dede;
-    border-radius: 4px;
-    border: 1px solid #eed3d7;
-    color: #b94a48;
+    border: 1px solid;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
 
 QLabel#connectLabel {
-    background: #408140;
+    background-color: #5cb85c;
     border-radius: 4px;
     border: none;
     color: #ffffff;
 }
 
 QLabel#connectLabel:disabled {
-    background: #bd362f;
+    background-color: #d9534f;
     border-radius: 4px;
     border: none;
     color: #ffffff;
 }
 
 QLabel#greenLabel {
-    background: #408140;
+    background-color: #5cb85c;
     border-radius: 4px;
     border: none;
     color: #ffffff;
 }
 
 QLabel#redLabel {
-    background: #bd362f;
+    background-color: #d9534f;
     border-radius: 4px;
     border: none;
     color: #ffffff;
 }
 
 QLabel#grayLabel {
-    background: #eeeeee;
+    background-color: #999;
     border-radius: 4px;
     border: none;
     color: #333333;
@@ -225,7 +224,7 @@ QLabel#alertLabel:disabled, QFrame#alertFrame:disabled {
 }
 
 QLabel#blueLabel {
-    background: #1872C9;
+    background-color: #428bca;
     border-radius: 4px;
     border: none;
     color: #ffffff;
@@ -325,55 +324,63 @@ QPushButton:hover {
 }
 
 QPushButton#defaultButton {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
     font-family: "FontAwesome";
+}
+
+QPushButton#defaultButton:hover {
+    background-color: #ebebeb;
+    border-color: #adadad;
 }
 
 QPushButton#orangeButton {
-    color:#FFFFFF;
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0  #f9943e, stop: 1.0 #e46c07);
-    border-color: #e46c07;
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
     font-family: "FontAwesome";
 }
 
-QPushButton#orangeButton:hover, QPushButton#orangeButton:disabled {
-    color:#ffffff;
-    background-color:#e46c07;
+QPushButton#orangeButton:hover {
+    background-color: #ed9c28;
+    border-color: #d58512;
 }
 
 QPushButton#blueButton {
-    color:#FFFFFF;
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #0d70d2, stop: 1.0 #0d2ed2);
-    border-color: #0d2ed2;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
     font-family: "FontAwesome";
 }
 
 QPushButton#blueButton:hover {
-    color:#ffffff;
-    background-color:#0d2ed2;
+    background-color: #3276b1;
+    border-color: #285e8e;
 }
 
 QPushButton#greenButton {
-    color:#FFFFFF;
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0  #62c462, stop: 1.0 #51a351);
-    border-color: #408140;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
     font-family: "FontAwesome";
 }
 
 QPushButton#greenButton:hover {
-    color:#ffffff;
-    background-color:#408140;
+    background-color: #47a447;
+    border-color: #398439;
 }
 
 QPushButton#redButton {
-    color:#FFFFFF;
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0  #ee5f5b, stop: 1.0 #bd362f);
-    border-color: #bd362f;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
     font-family: "FontAwesome";
 }
 
 QPushButton#redButton:hover {
-    color:#ffffff;
-    background-color:#bd362f;
+    background-color: #d2322d;
+    border-color: #ac2925;
 }
 
 QPushButton#blackButton {
@@ -389,14 +396,14 @@ QPushButton#blackButton:hover {
 }
 
 QPushButton#lightblueButton {
-    color:#FFFFFF;
-    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0  #5bc0de, stop: 1.0 #2f96b4);
-    border-color: #2a85a0;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
 }
 
 QPushButton#lightblueButton:hover {
-    color:#ffffff;
-    background-color:#2a85a0;
+    background-color: #39b3d7;
+    border-color: #269abc;
 }
 
 QPushButton#blueButton:disabled,
@@ -461,6 +468,7 @@ QSpinBox {
     padding-left: 2px;
     padding-right: 2px;
     min-height: 22px;
+    margin-top: 8px;
 }
 
 QSpinBox:disabled {
@@ -618,72 +626,13 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       background: none;
 }
 
-QCheckBox::indicator {
-     width: 16px;
-     height: 13px;
-}
-
-QCheckBox:disabled {
-    color: #eeeeee;
-}
-
-QCheckBox::indicator:disabled {
-    color: #eeeeee;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/data/icons/20x16/black/iconCheckEmpty.png);
-}
-
-QCheckBox::indicator:checked {
-     image: url(:/data/icons/20x16/black/iconCheck.png);
-}
-
-QCheckBox::indicator:indeterminate {
-     image: url(:/data/icons/20x16/black/iconSignBlank.png);
-}
-
-QCheckBox::indicator:unchecked:disabled {
-    image: url(:/data/icons/20x16/lightgray/iconCheckEmpty.png);
-}
-
-QCheckBox::indicator:checked:disabled {
-     image: url(:/data/icons/20x16/lightgray/iconCheck.png);
-}
-
-QCheckBox::indicator:indeterminate:disabled {
-     image: url(:/data/icons/20x16/lightgray/iconSignBlank.png);
-}
-
-QCheckBox#lock::indicator:unchecked {
-    image: url(:/data/icons/20x16/black/iconUnlock.png);
-}
-
-QCheckBox#lock::indicator:checked {
-     image: url(:/data/icons/20x16/black/iconLock.png);
-}
-
-QCheckBox#lock::indicator:unchecked:disabled {
-    image: url(:/data/icons/20x16/lightgray/iconUnlock.png);
-}
-
-QCheckBox#lock::indicator:checked:disabled {
-     image: url(:/data/icons/20x16/lightgray/iconLock.png);
-}
-
-
-QCheckBox#iconCheckBox {
-    font-family: "FontAwesome";
-}
-
-
 QProgressBar {
      background-color: #eeeeee;
      text-align: center;
 }
 
 QProgressBar::chunk {
-    background: #1872C9;
+    background-color: #428bca;
     border-radius: 3px;
     margin-top: 0px;
     margin-bottom: 0px;
