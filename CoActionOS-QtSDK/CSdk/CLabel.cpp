@@ -10,21 +10,26 @@ CLabel::CLabel(QWidget *parent) :
 }
 
 void CLabel::mousePressEvent(QMouseEvent *ev){
-    if( checkState_ == Qt::Checked ){
-        checkState_ = Qt::Unchecked;
+    if( checkState() == Qt::Checked ){
+        setChecked(Qt::Unchecked);
     } else {
-        checkState_ = Qt::Checked;
+        setChecked(Qt::Checked);
     }
     emit clicked();
-    emit clicked(checkState_ == Qt::Checked);
+    emit clicked(checkState() == Qt::Checked);
     QLabel::mousePressEvent(ev);
 }
 
 
 void CLabel::setChecked(bool checked){
     if( checked ){
-        checkState_ = Qt::Checked;
+        setCheckState(Qt::Checked);
     } else {
-        checkState_ = Qt::Unchecked;
+        setCheckState(Qt::Unchecked);
     }
 }
+
+void CLabel::setCheckState(enum Qt::CheckState state){
+    checkState_ = state;
+}
+

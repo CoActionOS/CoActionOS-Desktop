@@ -12,6 +12,7 @@ public:
     void setChecked(bool checked = true);
     bool isChecked(void) const { return checkState_ == Qt::Checked; }
     Qt::CheckState checkState(void) const { return checkState_; }
+    virtual void setCheckState(enum Qt::CheckState state);
 
 signals:
     void clicked(bool);

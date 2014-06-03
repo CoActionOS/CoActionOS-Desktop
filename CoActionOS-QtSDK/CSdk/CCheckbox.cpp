@@ -23,6 +23,12 @@ void CCheckbox::refresh(){
     CLabel::setText(CFont::fontAwesome(icon) + " " + text_);
 }
 
+void CCheckbox::setCheckState(enum Qt::CheckState state){
+    CLabel::setCheckState(state);
+    refresh();
+}
+
+
 
 void CCheckbox::on_clicked(){
     refresh();

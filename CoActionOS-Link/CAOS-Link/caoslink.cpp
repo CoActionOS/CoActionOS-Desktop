@@ -18,7 +18,6 @@
 #include "CaosInterface.h"
 
 
-
 /*! \details This is the main window constructor.  It initializes the GUI as
  * as well as the USB Link driver.
  *
@@ -39,7 +38,6 @@ Caoslink::Caoslink(QWidget *parent) :
 
     CFont::init();
     link_set_debug(1);
-
     ui->setupUi(this);
     linkDevice = ui->connectWidget->clink();
     ui->caosInterface->setLink(linkDevice);

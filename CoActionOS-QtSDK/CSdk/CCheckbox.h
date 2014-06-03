@@ -12,7 +12,7 @@ public:
     explicit CCheckbox(QWidget * parent = 0);
 
     void setText(const QString & text);
-
+    void setCheckState(enum Qt::CheckState state);
 
 protected:
     virtual void refresh();
