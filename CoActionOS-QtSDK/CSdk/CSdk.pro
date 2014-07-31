@@ -23,7 +23,6 @@ SOURCES += CSdk.cpp \
     CFileBrowser.cpp \
     CConnect.cpp \
     CSettings.cpp \
-    CBuildGenerator.cpp \
     CIconLabel.cpp \
     CCompress.cpp \
     CApplicationInstaller.cpp \
@@ -33,7 +32,11 @@ SOURCES += CSdk.cpp \
     CKernelSettings.cpp \
     CCheckbox.cpp \
     CLabel.cpp \
-    CLock.cpp
+    CLock.cpp \
+    CNotification.cpp \
+    CDebug.cpp \
+    CTextEdit.cpp \
+    CListWidget.cpp
 
 HEADERS += CSdk.h\
     CSdk_global.h \
@@ -45,7 +48,6 @@ HEADERS += CSdk.h\
     CFileBrowser.h \
     CConnect.h \
     CSettings.h \
-    CBuildGenerator.h \
     CIconLabel.h \
     CCompress.h \
     CApplicationInstaller.h \
@@ -56,7 +58,11 @@ HEADERS += CSdk.h\
     CLinkPtr.h \
     CCheckbox.h \
     CLabel.h \
-    CLock.h
+    CLock.h \
+    CNotification.h \
+    CDebug.h \
+    CTextEdit.h \
+    CListWidget.h
 
 FORMS += \
     CTerminal.ui \
@@ -67,7 +73,9 @@ FORMS += \
     CIconLabel.ui \
     CApplicationInstaller.ui \
     CInstaller.ui \
-    CKernelInstaller.ui
+    CKernelInstaller.ui \
+    CNotification.ui \
+    CDebug.ui
 
 OTHER_FILES += \
     fontawesome-webfont.ttf \

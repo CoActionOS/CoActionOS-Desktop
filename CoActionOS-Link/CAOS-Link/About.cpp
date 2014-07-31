@@ -14,6 +14,9 @@ About::About(QWidget *parent) :
     ui->setupUi(this);
     ui->versionValueLabel->setAlignment(Qt::AlignLeft);
     ui->versionValueLabel->setText(COACTIONOS_LINK_VERSION);
+    ui->coactionosNameIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
+    ui->coactionosNameIconLabel->setEnabled(false);
+    ui->coactionosNameIconLabel->setObjectName("acceptLabel");
     ui->coactionosVersionIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     ui->coactionosVersionIconLabel->setEnabled(false);
     ui->coactionosVersionIconLabel->setObjectName("acceptLabel");
@@ -51,12 +54,15 @@ void About::setLink(CLink *d){
 
 
 void About::connected(bool value){
+    ui->coactionosNameIconLabel->setAlignment(Qt::AlignCenter);
+    ui->coactionosNameIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     ui->coactionosVersionIconLabel->setAlignment(Qt::AlignCenter);
     ui->coactionosVersionIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     ui->coactionosClockIconLabel->setAlignment(Qt::AlignCenter);
     ui->coactionosClockIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     ui->coactionosSignatureIconLabel->setAlignment(Qt::AlignCenter);
     ui->coactionosSignatureIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
+    ui->coactionosNameIconLabel->setEnabled(false);
     ui->coactionosClockIconLabel->setEnabled(false);
     ui->coactionosSignatureIconLabel->setEnabled(false);
     ui->coactionosVersionIconLabel->setEnabled(false);
@@ -137,6 +143,9 @@ void About::refreshKernel()
     ui->coactionosSignatureIconLabel->setText("0x" + QString::number(attr.signature, 16) );
     ui->coactionosVersionIconLabel->setAlignment(Qt::AlignLeft);
     ui->coactionosVersionIconLabel->setText(attr.version );
+    ui->coactionosNameIconLabel->setAlignment(Qt::AlignLeft);
+    ui->coactionosNameIconLabel->setText(attr.name);
+    ui->coactionosNameIconLabel->setEnabled(true);
     ui->coactionosClockIconLabel->setEnabled(true);
     ui->coactionosSignatureIconLabel->setEnabled(true);
     ui->coactionosVersionIconLabel->setEnabled(true);

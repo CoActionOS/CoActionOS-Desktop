@@ -582,3 +582,14 @@ void CFileBrowser::on_formatButton_clicked()
 }
 
 void CFileBrowser::on_runButton_clicked(){ runApp(); }
+
+
+void CFileBrowser::resizeEvent(QResizeEvent * event){
+    QSize s = size();
+    if( s.width() < 450 ){
+        ui->showHiddenFilesCheckBox->hide();
+    } else {
+        ui->showHiddenFilesCheckBox->show();
+    }
+    event = 0;
+}

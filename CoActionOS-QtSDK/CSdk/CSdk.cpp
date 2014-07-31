@@ -1,6 +1,8 @@
 #include "CSdk.h"
 
 
+QString CSdk::appName_;
+
 CSdk::CSdk()
 {
    errorMsg = "";

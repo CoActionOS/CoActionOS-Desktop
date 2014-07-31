@@ -32,7 +32,7 @@ public slots:
 
 private:
     Ui::CTerminal *ui;
-    void addText(QString text, const QColor & textColor);
+    //void addText(QString text, const QColor & textColor);
     int maxSizeInt;
     QString logFileNameVar;
     QFile logFile;

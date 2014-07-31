@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <hwpl/Link.h>
 #include <CSdk/CLinkPtr.h>
+#include <CSdk/CDebug.h>
 
 namespace Ui {
 class CaosInterface;
@@ -30,13 +31,14 @@ public:
         KERNEL_TAB_INDEX,
         FILEBROWSER_TAB_INDEX,
         TERMINAL_TAB_INDEX,
+        DEBUG_TAB_INDEX,
         MONITOR_TAB_INDEX,
         PREFERENCES_TAB_INDEX,
-        ABOUT_TAB_INDEX,
-        LABEL_TAB_INDEX
+        ABOUT_TAB_INDEX
     };
 
     void setLink(CLink * device);
+    CDebug * debug();
 
 signals:
     void updateProgress(QString msg, int progress, int max);
@@ -60,6 +62,9 @@ private slots:
     void showApplicationPreferences(void);
     void showTerminalPreferences(void);
     void showKernel(void);
+
+    void applicationUpdated(QString workspace, QString project, QString conf);
+    void kernelUpdated(QString workspace, QString project, QString conf);
 
 private:
     Ui::CaosInterface *ui;

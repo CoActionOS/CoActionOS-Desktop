@@ -25,7 +25,7 @@
 #ifndef CAOSLINK_H
 #define CAOSLINK_H
 
-#define COACTIONOS_LINK_VERSION "1.4.0"
+#define COACTIONOS_LINK_VERSION "1.6.0b"
 #include <QMainWindow>
 #include <QString>
 #include <QProgressBar>
@@ -47,8 +47,18 @@ public:
     explicit Caoslink(QWidget *parent = 0);
     ~Caoslink();
 
+    static QString appName(){ return "CoActionOS Link"; }
+
 private:
     Ui::Caoslink *ui;
+    void resizeEvent(QResizeEvent * event);
+
+    QString keyMainWindowSize(){ return "KEY_MAINWINDOWSIZE"; }
+
+
+private slots:
+    void notified(int severity);
+    void notificationDismissed(int v);
 
 };
 

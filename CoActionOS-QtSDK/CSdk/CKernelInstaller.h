@@ -17,9 +17,17 @@ public:
   ~CKernelInstaller();
 
   void setLink(CLink *d);
+
+  void savePreferences();
+  void loadPreferences();
   
 signals:
   void aboutToReset(void);
+  void projectUpdated(QString workspace, QString project, QString conf);
+
+public slots:
+  void setProject(QString project);
+  void setConfiguration(QString conf);
 
 private slots:
   void connected(bool);
@@ -31,6 +39,8 @@ private slots:
 
 private:
   Ui::CKernelInstaller *ui;
+
+  void resizeEvent(QResizeEvent * event);
 
 };
 

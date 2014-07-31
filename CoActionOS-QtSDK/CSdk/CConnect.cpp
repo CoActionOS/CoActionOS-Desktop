@@ -64,8 +64,14 @@ void CConnect::connected(bool status){
   ui->connectStatusLabel->setVisible(false);
   if ( status == true ){
       qDebug("Connected");
+      if( ui->snComboBox->currentText() != "" ){
+        CNotify::updateStatus("Connected to " + ui->snComboBox->currentText());
+      } else {
+          CNotify::updateStatus("Connected to anonymous");
+      }
       if(clink_.isBootloader() == true ){
           ui->bootloaderStatusLabel->setVisible(true);
+          CNotify::updateStatus("Connected device is bootloader");
         } else{
           ui->connectStatusLabel->setText("Connected");
           ui->connectStatusLabel->setEnabled(true);
@@ -77,6 +83,11 @@ void CConnect::connected(bool status){
       periodic.start();
     } else {
       qDebug("Disconnected");
+      if( ui->snComboBox->currentText() != "" ){
+        CNotify::updateStatus("Disconnected from " + ui->snComboBox->currentText());
+      } else {
+          CNotify::updateStatus("Disconnected from anonymous");
+      }
       ui->connectButton->setEnabled(true);
       ui->disconnectButton->setEnabled(false);
       ui->connectStatusLabel->setText("Disconnected");
@@ -94,6 +105,7 @@ void CConnect::timeout(){
   if( (clink_.isConnected() == false) && (ui->connectButton->isEnabled() == false) ){
       clink_.exit();
       notify.execError(ui->snComboBox->currentText() + " unexpectedly disconnected");
+      CNotify::updateStatus(ui->snComboBox->currentText() + " unexpectedly disconnected");
     }
 }
 
@@ -108,6 +120,8 @@ void CConnect::on_connectButton_clicked(){
   QString buttonText;
   CNotify notify;
   buttonText = ui->connectButton->text();
+  QStringList desc;
+  QString serialNumber;
 
   qDebug("Connect Clicked");
   if (clink_.connected() ){
@@ -119,7 +133,15 @@ void CConnect::on_connectButton_clicked(){
       //Need to connect
       ui->connectStatusLabel->setText("Connecting...");
       qApp->processEvents();
-      err = clink_.init(ui->snComboBox->currentText().toStdString());
+
+      desc = ui->snComboBox->currentText().split(":");
+      if( desc.count() == 3 ){
+          serialNumber = desc.at(2);
+      } else {
+          serialNumber = ui->snComboBox->currentText();
+      }
+
+      err = clink_.init(serialNumber.toStdString());
 
       qDebug("Connected? %d", err);
       if ( err != 0 ){
@@ -189,4 +211,17 @@ void CConnect::on_disconnectButton_clicked()
       ui->disconnectButton->setEnabled(false);
     }
 }
+
+void CConnect::resizeEvent(QResizeEvent * event){
+    QSize s = size();
+    if( s.width() < 575 ){
+        ui->snComboBox->hide();
+        ui->refreshButton->hide();
+    } else {
+        ui->snComboBox->show();
+        ui->refreshButton->show();
+    }
+    event = 0;
+}
+
 

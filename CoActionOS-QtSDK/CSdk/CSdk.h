@@ -7,6 +7,7 @@
 class CSdk {
 public:
     CSdk();
+
     QString errorMessage(void);
 
 protected:
@@ -14,6 +15,7 @@ protected:
 
 private:
     QString errorMsg;
+    static QString appName_;
 };
 
 #endif // CSDK_H

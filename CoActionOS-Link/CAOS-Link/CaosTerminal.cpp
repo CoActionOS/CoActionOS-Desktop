@@ -16,6 +16,7 @@
 #include "caoslink.h"
 #include "Preferences.h"
 
+
 CaosTerminal::CaosTerminal(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::CaosTerminal){
@@ -147,7 +148,7 @@ void CaosTerminal::openTerminal(){
 
       link()->ioctl(inFd, I_FIFO_SETWRITEBLOCK, (void*)1);
 
-      CNotify::updateStatus("Terminal Opened");
+      CNotify::updateStatus("Terminal opened");
       readTimer.setInterval(100);
       readTimer.start();
 
@@ -177,7 +178,7 @@ void CaosTerminal::closeTerminal(){
               qDebug("failed to close output device");
             }
 
-          CNotify::updateStatus("Terminal Closed");
+          CNotify::updateStatus("Terminal closed");
         } else {
           qDebug("Device is not connected");
         }

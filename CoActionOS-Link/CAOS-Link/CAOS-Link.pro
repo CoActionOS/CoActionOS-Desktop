@@ -32,15 +32,11 @@ HEADERS  += caoslink.h \
     Preferences.h
 
 FORMS    += caoslink.ui \
-    KernelBuilder.ui \
-    ApplicationBuilder.ui \
     CaosTerminal.ui \
-    KernelBuilderFeatures.ui \
     About.ui \
     Monitor.ui \
     Preferences.ui \
     SystemImage.ui \
-    ConsoleOutput.ui \
     Updater.ui \
     CaosInterface.ui
 
@@ -65,8 +61,7 @@ OTHER_FILES += \
     symbols.txt \
     CStyle.css \
     fontawesome-webfont.ttf \
-    CStyle-win32.css \
-    fontawesome-ext-webfont.ttf
+    CStyle-win32.css
 
 RESOURCES += \
     resources.qrc

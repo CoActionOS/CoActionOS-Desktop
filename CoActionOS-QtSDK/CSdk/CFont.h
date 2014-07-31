@@ -49,16 +49,20 @@ public:
   static inline QString iconApplication(){ return iconBeaker(); }
   static inline QString iconKernel(){ return iconCog(); }
   static inline QString iconPreferences(){ return iconWrench(); }
+  static inline QString iconConfiguration(){ return iconCogs(); }
+  static inline QString iconOptions(){ return iconSliders(); }
   static inline QString iconBuild(){ return iconWrench(); }
   static inline QString iconMake(){ return iconBuild(); }
   static inline QString iconConfigure(){ return iconCog(); }
   static inline QString iconInstall(){ return iconDownloadAlt(); }
   static inline QString iconAbout(){ return iconInfoSign(); }
   static inline QString iconUpdate(){ return iconCloud(); }
-  static inline QString iconTerminal(){ return iconEdit(); }
+  static inline QString iconTerminal(){ return (QChar(0xf120)); }
   static inline QString iconConsole(){ return iconListAlt(); }
   static inline QString iconMonitor(){ return iconTasks(); }
   static inline QString iconStack(){ return iconAlignJustify(); }
+  static inline QString iconDebug(){ return iconBug(); }
+  static inline QString iconWorkspace(){ return iconFolderOpenAlt(); }
 
   static inline QString iconGlass(){ return (QChar(0xf000)); }
   static inline QString iconMusic(){ return (QChar(0xf001)); }
@@ -207,7 +211,8 @@ public:
   static inline QString iconTwitter(){ return (QChar(0xf099)); }
   static inline QString iconFacebook(){ return (QChar(0xf09a)); }
   static inline QString iconGithub(){ return (QChar(0xf09b)); }
-  static inline QString iconUnlock(){ return (QChar(0xf09c)); }
+  static inline QString iconUnlockAlt(){ return (QChar(0xf09c)); }
+  static inline QString iconUnlock(){ return (QChar(0xf13e)); }
   static inline QString iconCreditCard(){ return (QChar(0xf09d)); }
   static inline QString iconRss(){ return (QChar(0xf09e)); }
   static inline QString iconHdd(){ return (QChar(0xf0a0)); }
@@ -311,6 +316,9 @@ public:
   static inline QString iconGithubAlt(){return QChar(0xf113); }
   static inline QString iconFolderCloseAlt(){return QChar(0xf114); }
   static inline QString iconFolderOpenAlt(){return QChar(0xf115); }
+  static inline QString iconBug(){return QChar(0xf188); }
+  static inline QString iconCode(){return QChar(0xf121); }
+  static inline QString iconSliders(){return QChar(0xf1de); }
 
   //Part of Font-Awesome-More
   static inline QString iconAccessibilitySign(){ return QChar(0xf200); }

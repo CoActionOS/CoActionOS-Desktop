@@ -26,19 +26,23 @@ public:
     static bool terminalAppendMode(void);
     static bool terminalWarnOverwrite(void);
     static QString currentTab(void);
-    static QString currentApplicationProject(void);
-    static QString currentKernelProject(void);
+    static QString applicationProject(void);
+    static QString applicationConfiguration(void);
+    static QString kernelProject(void);
+    static QString kernelConfiguration(void);
+
+
+    static QSize windowSize(void);
 
     static void setCurrenTab(QString);
-    static void setCurrentApplicationProject(QString);
-    static void setCurrentKernelProject(QString);
+    static void setApplicationProject(QString);
+    static void setApplicationConfiguration(QString);
+    static void setkernelProject(QString);
+    static void setkernelConfiguration(QString);
+    static void setWindowSize(int w, int h);
 
     void setLink(CLink *d);
-
     void showTerminal(void);
-
-
-
 
 private slots:
     void connected(bool);

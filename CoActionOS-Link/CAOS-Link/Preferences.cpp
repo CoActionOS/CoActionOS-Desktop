@@ -9,11 +9,13 @@
 #include <CSdk/CFont.h>
 #include <CSdk/CNotify.h>
 
+#include "caoslink.h"
+
 
 Preferences::Preferences(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::Preferences),
-  settings(QSettings::UserScope, "CoActionOS-QtSDK")
+  settings(QSettings::UserScope, "CoActionOS Link")
 {
   qDebug("Preferences Init");
   initialized = false;
@@ -107,47 +109,82 @@ void Preferences::connected(bool arg1){
 
 
 QString Preferences::terminalMaximumSize(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getStringKey("KEY_TERMINALMAXIMUMSIZE");
 }
 QString Preferences::terminalLogFile(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getStringKey("KEY_TERMINALLOGFILE");
 }
 bool Preferences::terminalAppendMode(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getBoolKey("KEY_TERMINALAPPENDMODE");
 }
 bool Preferences::terminalWarnOverwrite(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getBoolKey("KEY_TERMINALWARNOVERWRITE");
 }
 QString Preferences::currentTab(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getStringKey("KEY_CURRENTTAB");
 }
-QString Preferences::currentApplicationProject(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
-  return s.getStringKey("KEY_CURRENTAPPLICATIONPROJECT");
+QString Preferences::applicationProject(void){
+  CSettings s(QSettings::UserScope, Caoslink::appName());
+  return s.getStringKey("KEY_APPLICATIONPROJECT");
 }
-QString Preferences::currentKernelProject(void){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
-  return s.getStringKey("KEY_CURRENTKERNELPROJECT");
+QString Preferences::kernelProject(void){
+  CSettings s(QSettings::UserScope, Caoslink::appName());
+  return s.getStringKey("KEY_KERNELPROJECT");
 }
+
+QSize Preferences::windowSize(void){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    QSize size;
+    size.setHeight( s.getStringKey("KEY_MAINWINDOW_HEIGHT").toUInt() );
+    size.setWidth( s.getStringKey("KEY_MAINWINDOW_WIDTH").toUInt() );
+    return size;
+}
+
+QString Preferences::applicationConfiguration(void){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    return s.getStringKey("KEY_APPLICATIONCONFIGURATION");
+}
+
+
+QString Preferences::kernelConfiguration(void){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    return s.getStringKey("KEY_KERNELCONFIGURATION");
+}
+
 
 void Preferences::setCurrenTab(QString value){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
+  CSettings s(QSettings::UserScope, Caoslink::appName());
   s.setKey("KEY_CURRENTTAB", value);
 }
-void Preferences::setCurrentApplicationProject(QString value){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
-  s.setKey("KEY_CURRENTAPPLICATIONPROJECT", value);
+void Preferences::setApplicationProject(QString value){
+  CSettings s(QSettings::UserScope, Caoslink::appName());
+  s.setKey("KEY_APPLICATIONPROJECT", value);
 }
-void Preferences::setCurrentKernelProject(QString value){
-  CSettings s(QSettings::UserScope, "CoActionOS-QtSDK");
-  s.setKey("KEY_CURRENTKERNELPROJECT", value);
+void Preferences::setkernelProject(QString value){
+  CSettings s(QSettings::UserScope, Caoslink::appName());
+  s.setKey("KEY_KERNELPROJECT", value);
 }
 
+void Preferences::setWindowSize(int w, int h){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    s.setKey("KEY_MAINWINDOW_WIDTH", QString::number(w));
+    s.setKey("KEY_MAINWINDOW_HEIGHT", QString::number(h));
+}
+
+void Preferences::setApplicationConfiguration(QString value){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    s.setKey("KEY_APPLICATIONCONFIGURATION", value);
+}
+
+void Preferences::setkernelConfiguration(QString value){
+    CSettings s(QSettings::UserScope, Caoslink::appName());
+    s.setKey("KEY_KERNELCONFIGURATION", value);
+}
 
 void Preferences::terminalLogFileLineEdit_editingFinished(){
   QFileInfo info;

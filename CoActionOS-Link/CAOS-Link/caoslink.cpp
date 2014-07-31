@@ -11,12 +11,14 @@
 #include <CSdk/CLink.h>
 #include <CSdk/CNotify.h>
 #include <CSdk/CFont.h>
+#include <CSdk/CNotification.h>
+#include <CSdk/CSettings.h>
 
 #include "caoslink.h"
 #include "ui_caoslink.h"
 #include "CaosTerminal.h"
 #include "CaosInterface.h"
-
+#include "Preferences.h"
 
 /*! \details This is the main window constructor.  It initializes the GUI as
  * as well as the USB Link driver.
@@ -29,6 +31,7 @@ Caoslink::Caoslink(QWidget *parent) :
 {
     CNotify notify;
     notify.updateStatus("");
+    CSettings settings(QSettings::UserScope);
     qDebug("CAOS Init");
     CLink * linkDevice;
     QCoreApplication::setOrganizationName("CoActionOS, Inc");
@@ -39,6 +42,8 @@ Caoslink::Caoslink(QWidget *parent) :
     CFont::init();
     link_set_debug(1);
     ui->setupUi(this);
+    resize( Preferences::windowSize() );
+
     linkDevice = ui->connectWidget->clink();
     ui->caosInterface->setLink(linkDevice);
     ui->progressBar->setVisible(false);
@@ -68,10 +73,15 @@ Caoslink::Caoslink(QWidget *parent) :
         qApp->setStyleSheet(StyleSheet);
     }
 
-
-
-    CNotify::setUpdateObjects(ui->statusBar, ui->progressBar);
+    //Set up the notification area
+    ui->notify->setVisible(false);
+    CNotify::setNotification(ui->notify);
+    connect(ui->notify, SIGNAL(activated(int)), this, SLOT(notified(int)));
+    connect(ui->notify, SIGNAL(dismissed(int)), this, SLOT(notificationDismissed(int)));
+    CNotify::setUpdateObjects(ui->statusBar, ui->progressBar, ui->caosInterface->debug());
     qDebug("CAOS Init Complete");
+
+
 
 }
 
@@ -91,3 +101,30 @@ Caoslink::~Caoslink(){
 }
 
 
+void Caoslink::notified(int severity){
+    ui->notify->show();
+
+    switch(severity){
+    case CNotification::SEVERITY_HIGH:
+        ui->caosInterface->hide();
+        break;
+    case CNotification::SEVERITY_MED:
+        ui->caosInterface->setEnabled(false);
+        break;
+    }
+}
+
+void Caoslink::resizeEvent(QResizeEvent * event){
+    QSize s = this->size();
+    qDebug("Size is %d x %d", s.width(), s.height());
+    event = 0;
+
+    Preferences::setWindowSize(s.width(), s.height());
+}
+
+void Caoslink::notificationDismissed(int v){
+    ui->notify->hide();
+    ui->caosInterface->setEnabled(true);
+    ui->caosInterface->show();
+    v = 0;
+}

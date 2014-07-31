@@ -23,6 +23,8 @@ public:
     void refresh(void);
     CLink * clink(){ return &clink_; }
 
+
+
 signals:
     void linked(bool isConnected);
 
@@ -40,6 +42,7 @@ private slots:
     
 
 private:
+    void resizeEvent(QResizeEvent * event);
     Ui::CConnect *ui;
     bool errorSuppression;
     CLink clink_;

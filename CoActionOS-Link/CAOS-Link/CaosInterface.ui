@@ -20,7 +20,16 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
     <number>2</number>
    </property>
    <item row="0" column="0">
@@ -63,6 +72,11 @@
        <string>Terminal</string>
       </attribute>
      </widget>
+     <widget class="CDebug" name="debugTab">
+      <attribute name="title">
+       <string>Debug</string>
+      </attribute>
+     </widget>
      <widget class="Monitor" name="monitorTab">
       <attribute name="title">
        <string>Monitor</string>
@@ -78,19 +92,23 @@
        <string>Abou</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="labelTab">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <attribute name="title">
-       <string>Label</string>
-      </attribute>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>CFileBrowser</class>
+   <extends>QWidget</extends>
+   <header>CSdk/CFileBrowser.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CApplicationInstaller</class>
+   <extends>QWidget</extends>
+   <header>CSdk/CApplicationInstaller.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>CaosTerminal</class>
    <extends>QWidget</extends>
@@ -110,27 +128,21 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CFileBrowser</class>
-   <extends>QWidget</extends>
-   <header location="global">CSdk/CFileBrowser.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>About</class>
    <extends>QWidget</extends>
    <header>About.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CApplicationInstaller</class>
-   <extends>QWidget</extends>
-   <header>CSdk/CApplicationInstaller.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>CKernelInstaller</class>
    <extends>QWidget</extends>
    <header>CSdk/CKernelInstaller.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CDebug</class>
+   <extends>QWidget</extends>
+   <header>CSdk/CDebug.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

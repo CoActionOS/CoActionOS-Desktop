@@ -9,10 +9,15 @@
 
 class CLink : public QObject, public Link
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  CLink() : Link(){}
+    CLink() : Link(){}
     bool isConnected(){ return connected(); }
+
+    static void setDebug(int value){ link_set_debug(value); }
+    static void setDebugCallback(void (*callback)(link_debug_context_t*)){
+        link_set_debug_callback(callback);
+    }
 
     QStringList dirList(QString dir){
         QStringList ret;
@@ -38,52 +43,52 @@ public:
     }
 
     int getNumDevices(void){
-      vector<string> list;
-      list = Link::listDevices();
-      return list.size();
+        vector<string> list;
+        list = Link::listDevices();
+        return list.size();
     }
 
     int init(string sn){
-      int ret = Link::init(sn);
-      if( ret == 0 ){
-          emit linked(true);
+        int ret = Link::init(sn);
+        if( ret == 0 ){
+            emit linked(true);
         }
-      qApp->processEvents();
-      return ret;
+        qApp->processEvents();
+        return ret;
     }
 
     int reinit(){
-      int ret = Link::reinit();
-      if( ret == 0 ){
-          emit linked(true);
+        int ret = Link::reinit();
+        if( ret == 0 ){
+            emit linked(true);
         }
-      qApp->processEvents();
-      return ret;
+        qApp->processEvents();
+        return ret;
     }
 
     int exit(){
-      emit linked(false);
-      qApp->processEvents();
-      return Link::exit();
+        emit linked(false);
+        qApp->processEvents();
+        return Link::exit();
     }
 
     int reset(){
-      emit linked(false);
-      qApp->processEvents();
-      return Link::reset();
+        emit linked(false);
+        qApp->processEvents();
+        return Link::reset();
     }
 
     int resetBootloader(){
-      emit linked(false);
-      qApp->processEvents();
-      return Link::resetBootloader();
+        emit linked(false);
+        qApp->processEvents();
+        return Link::resetBootloader();
     }
 
 
 signals:
-  void linked(bool isConnected);
-  void aboutToDisconnect(void);
-  void reconnectSignal(bool suppressError);
+    void linked(bool isConnected);
+    void aboutToDisconnect(void);
+    void reconnectSignal(bool suppressError);
 
 };
 

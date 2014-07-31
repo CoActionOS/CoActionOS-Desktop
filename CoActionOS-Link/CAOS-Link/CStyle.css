@@ -1,7 +1,7 @@
 QWidget {
     background: #ffffff;
     color: #333333;
-    font-family: "Century Gothic";
+    font-family: "FontAwesome";
 }
 
 QFrame#connectFrame {
@@ -18,7 +18,7 @@ QFrame#connectFrame {
 
 QToolTip {
     font-size: 14px;
-    font-family: "Century Gothic";
+    font-family: "FontAwesome";
     border: 1px solid #bbbbbb;
     background: #eeeeee;
 }
@@ -32,7 +32,7 @@ QStatusBar {
     margin-left: 20px;
 }
 
-QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidget, QCheckBox, QLabel {
+QListWidget, QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidget, QCheckBox, QLabel {
     margin-left: 4px;
     margin-right: 4px;
     margin-top: 4px;
@@ -57,15 +57,20 @@ CCheckbox {
 }
 
 
-QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidget, QProgressBar {
+QListWidget, QLineEdit, QTextEdit, QSpinBox, QComboBox, QPushButton, QTableWidget, QTreeWidget, QProgressBar {
     border: 1px solid #bbbbbb;
     border-radius: 4px;
 }
 
-QLabel,QPushButton {
+QPushButton {
     min-height: 24px;
     height: 24px;
     max-height: 24px;
+}
+
+QLabel {
+    min-height: 24px;
+    height: 24px;
 }
 
 QLabel, QCheckBox {
@@ -156,9 +161,9 @@ QTabBar::tab:selected {
 }
 
 QTabBar::tab:disabled {
-    width: 122%;
-    font-size: 16px;
-    font-family: "Century Gothic";
+    /*width: 122%;*/
+    /*font-size: 16px;*/
+    color: #bbbbbb;
 }
 
 
@@ -166,13 +171,18 @@ QLabel#warningLabel:disabled  {
     color: #a94442;
 }
 
-
-
 QLabel#acceptLabel:disabled, QLabel#alertErrorLabel, QLabel#alertWarningLabel {
     border: 1px solid;
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+    max-height: 24px;
+}
+
+QLabel#acceptInfoLabel {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
 }
 
 QLabel#connectLabel {

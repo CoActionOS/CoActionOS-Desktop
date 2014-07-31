@@ -21,6 +21,7 @@ public:
   QString workspace(void);
   
   void setSettings(QString settings){ this->settings = settings; }
+  void setPrefix(QString prefix){ this->settingsPrefix = "KEY_" + prefix; }
 
   void updateProjectList(void);
   QString project();
@@ -28,15 +29,27 @@ public:
   QString projectPath(){ return workspace() + "/" + project(); }
   QString configurationPath(){ return projectPath() + "/" + configuration(); }
 
+  void showLabels(bool v = true);
+
   enum {
       INVALID_SIGNATURE = 0xFFFFFFFF
   };
+
+  void selectProject(QString project);
+  void selectConfiguration(QString conf);
+
+  void savePreferences();
+  void loadPreferences();
 
 signals:
   QStringList addConfiguration(QStringList);
   void clearConfigurations(void);
   void addProject(QString);
   void projectSelected(QString);
+  void projectUpdated(QString workspace, QString project, QString conf);
+
+
+
 
 private:
   Ui::CInstaller *ui;
@@ -44,6 +57,7 @@ private:
 
   QString addAlias(QString symbol, bool useFloat);
   QString settings;
+  QString settingsPrefix;
   void addConfigurations(QStringList list);
 
   bool updateConfiguration;
@@ -57,6 +71,9 @@ private slots:
   void on_clearConfigurationsButton_clicked();
   void on_projectNameComboBox_currentIndexChanged(const QString &arg1);
   void on_configurationComboBox_currentIndexChanged(const QString &arg1);
+
+  void emitUpdated();
+
 };
 
 #endif // CINSTALLER_H

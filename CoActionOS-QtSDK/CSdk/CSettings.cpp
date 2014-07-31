@@ -14,9 +14,12 @@ CSettings::CSettings(QString name, bool create, QSettings::Format format){
       return;
     }
 
-  qDebug("Create name %s %s dir %s", name.toLocal8Bit().constData(),
-         info.fileName().toLocal8Bit().constData(),
-         dir.fileName().toLocal8Bit().constData());
+  if( (create == true) && !info.exists() ){
+      qDebug("Create name %s %s dir %s", name.toLocal8Bit().constData(),
+             info.fileName().toLocal8Bit().constData(),
+             dir.fileName().toLocal8Bit().constData());
+  }
+
   if( (create == true) || (info.exists()) ){
       settings = new QSettings(name, format);
     }

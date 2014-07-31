@@ -3,13 +3,17 @@
 
 #include <QStringList>
 #include <QSettings>
+#include <QCoreApplication>
 
 class CSettings
 {
 public:
   CSettings(QString name, bool create = true, QSettings::Format format = QSettings::IniFormat);
-  CSettings(QSettings::Scope scope, QString app, QString org = "CoActionOS, Inc", QSettings::Format format = QSettings::IniFormat);
+  CSettings(QSettings::Scope scope, QString app = QCoreApplication::applicationName(), QString org = "CoActionOS, Inc", QSettings::Format format = QSettings::IniFormat);
   ~CSettings();
+
+  static QString app(){ return "CoActionOS-QtSDK"; }
+  static QSettings::Scope userScope(){ return QSettings::UserScope; }
 
 
   bool exists(void);

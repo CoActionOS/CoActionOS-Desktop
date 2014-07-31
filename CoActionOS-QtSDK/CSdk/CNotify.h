@@ -10,6 +10,9 @@
 #include <QtWidgets/QStatusBar>
 #include <QTimer>
 
+#include "CNotification.h"
+#include "CDebug.h"
+
 namespace Ui {
 class CNotify;
 }
@@ -22,6 +25,10 @@ public:
     explicit CNotify(QWidget *parent = 0);
     ~CNotify();
 
+    static void setNotification(CNotification * obj){ notificationPtr = obj; }
+
+    static CNotification * notification(){ return notificationPtr; }
+
     void execWarning(QString);
     void execInfo(QString);
     void execError(QString);
@@ -29,7 +36,7 @@ public:
     void execNotConnected(void);
     int execPrompt(QString);
 
-    static void setUpdateObjects(QStatusBar * statusBar, QProgressBar * progressBar);
+    static void setUpdateObjects(QStatusBar * statusBar, QProgressBar * progressBar, CDebug * debug);
     static void updateStatus(QString status);
     static void updateProgress(int progress, int max, bool showprogress = true);
 
@@ -43,9 +50,11 @@ private:
     Ui::CNotify *ui;
     static QStatusBar * statusBar;
     static QProgressBar * progressBar;
+    static CDebug * debug;
     static QStringList messages;
     static QTimer * msgTimer;
     static CNotify * notifyPtr;
+    static CNotification * notificationPtr;
 };
 
 #endif // CNOTIFY_H

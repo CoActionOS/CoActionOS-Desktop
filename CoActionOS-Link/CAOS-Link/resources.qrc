@@ -12,6 +12,5 @@
         <file>icons/16x16/black/iconChevronDown.png</file>
         <file>icons/16x16/black/iconChevronUp.png</file>
         <file>CStyle-win32.css</file>
-        <file>fontawesome-ext-webfont.ttf</file>
     </qresource>
 </RCC>

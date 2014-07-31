@@ -43,14 +43,11 @@ CTerminal::~CTerminal(){
 
 
 void CTerminal::setMaxTextSize(int max){
-    maxSizeInt = max;
-    if( maxSizeInt < MIN_SIZE ){
-        maxSizeInt = MIN_SIZE;
-    }
+    ui->textEdit->setMaxTextSize(max);
 }
 
 int CTerminal::maxTextSize(void){
-    return maxSizeInt;
+    return ui->textEdit->maxTextSize();
 }
 
 bool CTerminal::isLogOpen(void){
@@ -63,46 +60,6 @@ void CTerminal::setLogFileName(QString name,
   logFileNameVar = name;
   logAppendVar = append;
   logWarnOverwriteVar = overwriteWarn;
-}
-
-
-/*! \details This method adds text to the terminal window.  It
- * is designed to auto scroll to the bottom when new text is added unless
- * the user has scroll up.
- *
- */
-void CTerminal::addText(QString text, const QColor & textColor){
-    int currentScroll;
-    int maximumScroll;
-    QTextCursor currentCursor;
-    QTextCursor insertCursor;
-
-    currentScroll = ui->textEdit->verticalScrollBar()->value();
-    maximumScroll = ui->textEdit->verticalScrollBar()->maximum();
-    currentCursor = ui->textEdit->textCursor();
-    insertCursor = currentCursor;
-
-    //Put the write text in a different color
-    insertCursor.movePosition(QTextCursor::End);
-    insertCursor.clearSelection();
-    ui->textEdit->setTextCursor(insertCursor);
-    ui->textEdit->setTextColor(textColor);
-    ui->textEdit->insertPlainText(text);
-
-    if ( ui->textEdit->toPlainText().size() > maxSizeInt ){
-        ui->textEdit->setPlainText( ui->textEdit->toPlainText().right(maxSizeInt/2) );
-        ui->textEdit->textCursor().movePosition(QTextCursor::End);
-        ui->textEdit->verticalScrollBar()->setValue( ui->textEdit->verticalScrollBar()->maximum() );
-    }
-
-    ui->textEdit->setTextCursor(currentCursor);
-
-    if ( currentScroll == maximumScroll ){
-        ui->textEdit->verticalScrollBar()->setValue( ui->textEdit->verticalScrollBar()->maximum() );
-    } else {
-        ui->textEdit->verticalScrollBar()->setValue(currentScroll);
-    }
-
 }
 
 void CTerminal::opened(bool isOpen){
@@ -155,7 +112,7 @@ void CTerminal::opened(bool isOpen){
 }
 
 void CTerminal::receiveText(QString text){
-    addText(text, QColor(Qt::black));
+    ui->textEdit->appendText(text, QColor(Qt::black));
     if( logFile.isOpen() == true ){
         logFile.write(text.toLocal8Bit().constData());
       }

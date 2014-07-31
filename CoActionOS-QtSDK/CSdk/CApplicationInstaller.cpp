@@ -14,11 +14,8 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CApplicationInstaller)
 {
-    CSettings settings(QSettings::UserScope, "CoActionOS-QtSDK");
-
     qDebug("CApplicationInstaller Init");
     ui->setupUi(this);
-    //loadSettings();
     //updateNeeded = false;
     ui->uninstallButton->setToolTip("Uninstall application");
 
@@ -47,12 +44,17 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     ui->installPath->setObjectName("unified");
     connect(ui->installPath->lineEdit(), SIGNAL(editingFinished()), this, SLOT(installPathUpdated()));
 
+    ui->installer->setPrefix("APPLICATION");
     ui->installer->setSettings(CApplicationSettings::settings());
-    ui->installer->setWorkspace(settings.getStringKey("KEY_" + CApplicationSettings::settings()));
+    ui->installer->loadPreferences();
+
 
     connect(ui->installer, SIGNAL(addProject(QString)), this, SLOT(addProject(QString)));
     connect(ui->installer, SIGNAL(projectSelected(QString)), this, SLOT(projectSelected(QString)));
     //need to load the previously loaded workspace
+
+    connect(ui->installer, SIGNAL(projectUpdated(QString, QString, QString)),
+            this, SIGNAL(projectUpdated(QString, QString, QString)));
 
     connect(ui->dataSizeLockCheckBox, SIGNAL(clicked(bool)), ui->dataSizeSpinBox, SLOT(setEnabled(bool)));
 
@@ -92,6 +94,14 @@ void CApplicationInstaller::addProject(QString name){
     settings.setInstallPath("/app/.install");
 }
 
+void CApplicationInstaller::setProject(QString project){
+    ui->installer->selectProject(project);
+}
+
+void CApplicationInstaller::setConfiguration(QString conf){
+    ui->installer->selectConfiguration(conf);
+}
+
 void CApplicationInstaller::projectSelected(QString name){
     CApplicationSettings settings(ui->installer->workspace() + "/" + name);
     ui->optionsRamCheckBox->setChecked(settings.ram());
@@ -101,6 +111,8 @@ void CApplicationInstaller::projectSelected(QString name){
     ui->dataSizeSpinBox->setValue(settings.dataSize().toInt());
     on_optionsStartupCheckBox_clicked( ui->optionsStartupCheckBox->isChecked() );
     on_optionsRamCheckBox_clicked( ui->optionsRamCheckBox->isChecked() );
+    qDebug("Project %s selected", name.toLocal8Bit().constData());
+    emit selected(ui->installer->workspace() + "/" + name);
 }
 
 void CApplicationInstaller::on_installButton_clicked()
@@ -111,20 +123,8 @@ void CApplicationInstaller::on_installButton_clicked()
 
     CNotify::updateProgress(0, 0);
     qApp->processEvents();
-    if ( install() != 0 ){
-        return;
-    } else {
 
-        if( ui->optionsFilesCheckBox->isChecked() == true ){
-            on_filesInstallButton_clicked();
-        }
-
-        if ( ui->optionsRunCheckBox->isChecked() ){
-            emit runApplication( projectRunPath() );
-        }
-    }
-    CNotify::updateProgress(0, 0, false);
-    CNotify::updateStatus("App install complete");
+    install();
 
 }
 
@@ -132,22 +132,51 @@ void CApplicationInstaller::on_uninstallButton_clicked()
 {
     CNotify notify;
     QString projectName = ui->installer->project();
-    int err;
     int pid;
-    //ask to kill running process
-    if( (pid = link()->isExecuting(projectName.toStdString())) >= 0 ){
-        if( notify.execPrompt("Kill running process") == 0 ){
-            CNotify::updateStatus("Uninstalled aborted");
+
+    if( CNotify::notification() != 0 ){
+        if( (pid = link()->isExecuting(projectName.toStdString())) >= 0 ){
+            connect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(uninstallPrompt(int)));
+            notify.execPrompt("Kill " + ui->installer->project() + "?");
             return;
         }
+    } else {
+        //ask to kill running process
+        if( (pid = link()->isExecuting(projectName.toStdString())) >= 0 ){
+            if( notify.execPrompt("Kill running process") == 0 ){
+                CNotify::updateStatus("Uninstalled aborted");
+                return;
+            }
 
+            if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+                notify.execLinkError(link_errno);
+                return;
+            }
+        }
+    }
+
+    uninstallApp();
+}
+
+void CApplicationInstaller::uninstallPrompt(int v){
+    int pid;
+    CNotify notify;
+    disconnect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(uninstallPrompt(int)));
+    if( v != 0 ){
+        pid = link()->isExecuting(ui->installer->project().toStdString());
         if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
             notify.execLinkError(link_errno);
             return;
         }
+        uninstallApp();
     }
 
-    //uninstall project
+}
+
+int CApplicationInstaller::uninstallApp(){
+    CNotify notify;
+    QString projectName = ui->installer->project();
+    int err;
     err = 0;
     if ( ui->installPath->lineEdit()->text() == "/app/.install"){
         if ( ui->optionsRamCheckBox->isChecked() == false ){
@@ -164,6 +193,8 @@ void CApplicationInstaller::on_uninstallButton_clicked()
     } else {
         notify.updateStatus(projectName + " removed");
     }
+
+    return err;
 }
 
 int CApplicationInstaller::install(void){
@@ -234,6 +265,11 @@ int CApplicationInstaller::install(void){
     pid = link()->isExecuting(appfsFile.hdr.name);
     if( pid >= 0 ){
 
+        if( CNotify::notification() != 0 ){
+            connect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(installPrompt(int)));
+            CNotify::notification()->setQuestion("Kill running process?");
+            return 0;
+        }
         qDebug("Ask to kill");
         if( notify.execPrompt("Kill running process?") == false ){
             notify.updateStatus("Install aborted");
@@ -253,6 +289,24 @@ int CApplicationInstaller::install(void){
     link()->unlink("/app/ram/" + ui->installer->project().toStdString());
 
     return installApp();
+}
+
+void CApplicationInstaller::installPrompt(int v){
+    int pid;
+    CNotify notify;
+    disconnect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(installPrompt(int)));
+    if( v != 0 ){
+        pid = link()->isExecuting(ui->installer->project().toStdString());
+        if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+            notify.execLinkError(link_errno);
+            return;
+        }
+        //delete the existing file
+        qDebug("Unlink the files");
+        link()->unlink("/app/flash/" + ui->installer->project().toStdString());
+        link()->unlink("/app/ram/" + ui->installer->project().toStdString());
+        installApp();
+    }
 }
 
 QString CApplicationInstaller::projectRunPath(void){
@@ -318,6 +372,17 @@ int CApplicationInstaller::installApp(){
     }
 
     sourceFile.close();
+
+    if( ui->optionsFilesCheckBox->isChecked() == true ){
+        on_filesInstallButton_clicked();
+    }
+
+    if ( ui->optionsRunCheckBox->isChecked() ){
+        emit runApplication( projectRunPath() );
+    }
+
+    CNotify::updateProgress(0, 0, false);
+    CNotify::updateStatus(ui->installer->project() + " install complete");
 
     return 0;
 }
@@ -453,4 +518,17 @@ void CApplicationInstaller::on_filesInstallButton_clicked()
 
     CNotify::updateStatus("File install complete");
 
+}
+
+void CApplicationInstaller::resizeEvent(QResizeEvent * event){
+    if( size().width() < 575 ){
+        ui->optionsLabel->hide();
+        ui->installPathLabel->hide();
+        ui->installer->showLabels(false);
+    } else {
+        ui->installPathLabel->show();
+        ui->optionsLabel->show();
+        ui->installer->showLabels(true);
+    }
+    event = 0;
 }

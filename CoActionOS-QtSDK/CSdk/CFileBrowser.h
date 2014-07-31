@@ -55,6 +55,7 @@ private slots:
     void on_runButton_clicked();
 
 private:
+    void resizeEvent(QResizeEvent * event);
     Ui::CFileBrowser *ui;
     QTreeWidgetItem * topItem;
     char decodeType(link_mode_t mode);

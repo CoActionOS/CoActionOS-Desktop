@@ -6,6 +6,7 @@
 #include <QStringList>
 
 #include "CLinkPtr.h"
+#include "CSdk.h"
 
 namespace Ui {
   class CApplicationInstaller;
@@ -24,9 +25,14 @@ public:
 signals:
   void runApplication(QString path);
   int isRunning(QString);
+  void selected(QString path);
+  void projectUpdated(QString workspace, QString project, QString conf);
 
 public slots:
   void installApplication(void);
+
+  void setProject(QString project);
+  void setConfiguration(QString conf);
   
 private slots:
   void connected(bool);
@@ -41,9 +47,14 @@ private slots:
   void on_dataSizeSpinBox_valueChanged(int arg1);
   void on_filesInstallButton_clicked();
 
+  void uninstallPrompt(int v);
+  void installPrompt(int v);
+
 private:
+  void resizeEvent(QResizeEvent * event);
   int install(void);
   int installApp();
+  int uninstallApp();
   QString projectRunPath(void);
 
   bool parseDataSize(void);
