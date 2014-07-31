@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CDebug</class>
+ <widget class="QWidget" name="CDebug">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1150</width>
+    <height>657</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="traceVerticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="traceLabel">
+         <property name="text">
+          <string>Trace</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="CListWidget" name="traceListWidget"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="assemblyVerticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="assemblyLabel">
+         <property name="text">
+          <string>Assembly</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="assemblyListWidget">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="logLabel">
+     <property name="text">
+      <string>LogLabel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="CTextEdit" name="logTextEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="pidComboBox">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="refreshPidButton">
+       <property name="text">
+        <string>Refresh PID</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CCheckbox" name="messageCheckbox">
+       <property name="text">
+        <string>Message</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CCheckbox" name="warningCheckbox">
+       <property name="text">
+        <string>Warning</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CCheckbox" name="errorCheckbox">
+       <property name="text">
+        <string>Error</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="startTraceButton">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stopTraceButton">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
+        <string>Clear Logs</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="showTraceButton">
+       <property name="text">
+        <string>Show Trace</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="showAssemblyButton">
+       <property name="text">
+        <string>Show Assembly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="showLogButton">
+       <property name="text">
+        <string>Show Log</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="showSettingsButton">
+       <property name="text">
+        <string>Show Settings</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>CSdk/CTextEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CCheckbox</class>
+   <extends>QLabel</extends>
+   <header>CSdk/CCheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CListWidget</class>
+   <extends>QListWidget</extends>
+   <header>CListWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
