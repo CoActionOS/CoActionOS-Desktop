@@ -20,6 +20,7 @@
 #include "CaosInterface.h"
 #include "Preferences.h"
 
+
 /*! \details This is the main window constructor.  It initializes the GUI as
  * as well as the USB Link driver.
  *

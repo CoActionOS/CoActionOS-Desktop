@@ -116,6 +116,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="CCheckbox" name="autoLaunchCheckbox">
+       <property name="text">
+        <string>Auto</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QComboBox" name="pidComboBox">
        <property name="minimumSize">
         <size>

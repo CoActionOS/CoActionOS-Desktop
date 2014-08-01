@@ -307,15 +307,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>CCheckbox</class>
+   <extends>QLabel</extends>
+   <header>CSdk/CCheckbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>CLineEdit</class>
    <extends>QWidget</extends>
    <header>CSdk/CLineEdit.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CCheckbox</class>
-   <extends>QLabel</extends>
-   <header>CSdk/CCheckbox.h</header>
   </customwidget>
   <customwidget>
    <class>CInstaller</class>

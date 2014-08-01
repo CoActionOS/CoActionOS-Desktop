@@ -123,6 +123,7 @@ CDebug::~CDebug()
 void CDebug::savePreferences(){
     CSettings settings(CSettings::userScope());
 
+    settings.setKey("KEY_DEBUGAUTOLAUNCH", ui->autoLaunchCheckbox->isChecked());
     settings.setKey("KEY_DEBUGSHOWASSEMBLY", assemblyVisible );
     settings.setKey("KEY_DEBUGSHOWTRACE", traceVisible );
     settings.setKey("KEY_DEBUGSHOWLOG", logVisible );
@@ -185,7 +186,6 @@ void CDebug::on_showTraceButton_clicked()
 {
     ui->traceListWidget->setVisible( !ui->traceListWidget->isVisible() );
 
-
     if( ui->traceListWidget->isVisible() == false ){
         ui->assemblyListWidget->hide();
         ui->assemblyLabel->hide();
@@ -219,6 +219,7 @@ void CDebug::loadPreferences(){
     ui->messageCheckbox->setChecked( settings.getBoolKey("KEY_MESSAGECHECKBOX") );
     ui->warningCheckbox->setChecked( settings.getBoolKey("KEY_WARNINGCHECKBOX") );
     ui->errorCheckbox->setChecked( settings.getBoolKey("KEY_ERRORCHECKBOX") );
+    ui->autoLaunchCheckbox->setChecked( settings.getBoolKey("KEY_DEBUGAUTOLAUNCH") );
 
     if( (ui->logTextEdit->isVisible() == false) && (ui->traceListWidget->isVisible() == false )){
         ui->traceListWidget->setVisible(true);
@@ -589,7 +590,7 @@ void CDebug::on_traceListWidget_itemClicked(QListWidgetItem *item)
         while ( assembly.atEnd() == false ) {
             line = assembly.readLine();
             lineNumber++;
-            if( line.startsWith(hexValue + ":") ){
+            if( line.simplified().startsWith(hexValue + ":") ){
                 //load the previous and next 100 lines
                 break;
             }
@@ -632,7 +633,27 @@ void CDebug::on_traceListWidget_itemClicked(QListWidgetItem *item)
                         activeRow * ui->assemblyListWidget->verticalScrollBar()->maximum() / ui->assemblyListWidget->count()
                         );
         }
+    }
+}
 
+void CDebug::applicationLaunched(QString path){
+    QFileInfo info(path);
+    QStringList pidName;
+    int i;
+    if( trace_id != 0 ){
+        on_stopTraceButton_clicked(); //stop current trace
+    }
 
+    if( ui->autoLaunchCheckbox->isChecked() == true ){
+        this->on_refreshPidButton_clicked();
+        for(i=0; i < ui->pidComboBox->count(); i++){
+            pidName = ui->pidComboBox->itemText(i).split(":");
+            if( pidName.at(1) == info.fileName() ){
+                ui->pidComboBox->setCurrentIndex(i);
+                CNotify::updateStatus("Auto launch " + pidName.at(1) + " trace");
+                on_startTraceButton_clicked();
+                return;
+            }
+        }
     }
 }

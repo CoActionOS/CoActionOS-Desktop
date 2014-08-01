@@ -264,6 +264,7 @@ void CaosInterface::runApplicationInTerminal(QString path){
     ui->terminalTab->openTerminal();
     err = link()->runApp( path.toStdString() );
 
+    ui->debugTab->applicationLaunched(path);
 
     if ( err >= 0 ){
         ui->tabs->setCurrentIndex( TERMINAL_TAB_INDEX );
@@ -271,6 +272,5 @@ void CaosInterface::runApplicationInTerminal(QString path){
     } else {
         notify.execError(errorMessage());
     }
-
 }
 

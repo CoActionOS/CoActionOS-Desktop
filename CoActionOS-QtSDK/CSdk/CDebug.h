@@ -32,6 +32,7 @@ public:
 public slots:
     void currentAppUpdated(QString workspace, QString project, QString conf);
     void currentKernelUpdated(QString workspace, QString project, QString conf);
+    void applicationLaunched(QString path);
 
 private slots:
     void connected(bool);
