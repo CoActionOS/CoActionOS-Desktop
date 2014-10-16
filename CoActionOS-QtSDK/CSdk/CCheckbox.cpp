@@ -32,4 +32,5 @@ void CCheckbox::setCheckState(enum Qt::CheckState state){
 
 void CCheckbox::on_clicked(){
     refresh();
+    emit clicked(isChecked());
 }

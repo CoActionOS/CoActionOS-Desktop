@@ -17,17 +17,18 @@ public:
   ~CKernelInstaller();
 
   void setLink(CLink *d);
-
   void savePreferences();
   void loadPreferences();
   
 signals:
   void aboutToReset(void);
   void projectUpdated(QString workspace, QString project, QString conf);
+  void installApps(void);
 
 public slots:
   void setProject(QString project);
   void setConfiguration(QString conf);
+  void installKernel(void);
 
 private slots:
   void connected(bool);

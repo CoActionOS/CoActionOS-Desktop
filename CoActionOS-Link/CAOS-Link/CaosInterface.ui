@@ -47,7 +47,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>2</number>
      </property>
      <property name="usesScrollButtons">
       <bool>false</bool>
@@ -60,6 +60,11 @@
      <widget class="CKernelInstaller" name="kernelTab">
       <attribute name="title">
        <string>Kernel</string>
+      </attribute>
+     </widget>
+     <widget class="CIsp" name="ispTab">
+      <attribute name="title">
+       <string>ISP</string>
       </attribute>
      </widget>
      <widget class="CFileBrowser" name="fileBrowserTab">
@@ -98,6 +103,12 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>Preferences</class>
+   <extends>QWidget</extends>
+   <header>Preferences.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>CFileBrowser</class>
    <extends>QWidget</extends>
    <header>CSdk/CFileBrowser.h</header>
@@ -122,12 +133,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>Preferences</class>
-   <extends>QWidget</extends>
-   <header location="global">Preferences.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>About</class>
    <extends>QWidget</extends>
    <header>About.h</header>
@@ -143,6 +148,12 @@
    <class>CDebug</class>
    <extends>QWidget</extends>
    <header>CSdk/CDebug.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CIsp</class>
+   <extends>QWidget</extends>
+   <header>CSdk/CIsp.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

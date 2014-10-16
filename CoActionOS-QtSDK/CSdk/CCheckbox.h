@@ -14,6 +14,9 @@ public:
     void setText(const QString & text);
     void setCheckState(enum Qt::CheckState state);
 
+signals:
+    void clicked(bool v);
+
 protected:
     virtual void refresh();
 

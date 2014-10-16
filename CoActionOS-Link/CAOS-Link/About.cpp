@@ -142,7 +142,7 @@ void About::refreshKernel()
     ui->coactionosSignatureIconLabel->setAlignment(Qt::AlignLeft);
     ui->coactionosSignatureIconLabel->setText("0x" + QString::number(attr.signature, 16) );
     ui->coactionosVersionIconLabel->setAlignment(Qt::AlignLeft);
-    ui->coactionosVersionIconLabel->setText(attr.version );
+    ui->coactionosVersionIconLabel->setText(QString(attr.sys_version) + " (" + QString(attr.version) + ")");
     ui->coactionosNameIconLabel->setAlignment(Qt::AlignLeft);
     ui->coactionosNameIconLabel->setText(attr.name);
     ui->coactionosNameIconLabel->setEnabled(true);

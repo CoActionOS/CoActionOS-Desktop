@@ -5,7 +5,7 @@
 
 /*! \file */
 
-
+#include <QThread>
 #include <QFile>
 #include <QFontDatabase>
 #include <CSdk/CLink.h>
@@ -82,6 +82,8 @@ Caoslink::Caoslink(QWidget *parent) :
     CNotify::setUpdateObjects(ui->statusBar, ui->progressBar, ui->caosInterface->debug());
     qDebug("CAOS Init Complete");
 
+    connect(ui->caosInterface, SIGNAL(installKernel()), this, SLOT(installKernelRequest()));
+    connect(ui->caosInterface, SIGNAL(installApps()), this, SLOT(installAppsRequest()));
 
 
 }
@@ -128,4 +130,47 @@ void Caoslink::notificationDismissed(int v){
     ui->caosInterface->setEnabled(true);
     ui->caosInterface->show();
     v = 0;
+}
+
+void Caoslink::installKernelRequest(void){
+    int i;
+    //first connect
+    i = 0;
+    do {
+        QThread::usleep(100*1000);
+        ui->connectWidget->refresh();
+        ui->connectWidget->connectRequested(true);
+        qApp->processEvents();
+        i++;
+    } while(i < 10 && (ui->connectWidget->clink()->isConnected() == false) );
+
+
+    //now tell the interface to install the kernel
+    if( ui->connectWidget->clink()->isConnected() == true ){
+        ui->caosInterface->installKernelRequest();
+    } else {
+        ui->connectWidget->connectRequested(false);
+    }
+
+}
+
+void Caoslink::installAppsRequest(void){
+    int i;
+    //first connect
+    i = 0;
+    do {
+        QThread::usleep(100*1000);
+        ui->connectWidget->refresh();
+        ui->connectWidget->connectRequested(true);
+        qApp->processEvents();
+        i++;
+    } while(i < 10 && (ui->connectWidget->clink()->isConnected() == false) );
+
+
+    //now tell the interface to install the kernel
+    if( ui->connectWidget->clink()->isConnected() == true ){
+        ui->caosInterface->installAppsRequest();
+    } else {
+        ui->connectWidget->connectRequested(false);
+    }
 }

@@ -13,7 +13,6 @@
 #include <CSdk/CFont.h>
 #include <QFileInfo>
 
-
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CaosInterface){
@@ -31,6 +30,8 @@ CaosInterface::CaosInterface(QWidget *parent) :
     ui->tabs->setTabToolTip(APPLICATION_TAB_INDEX, "Application");
     ui->tabs->setTabText(KERNEL_TAB_INDEX, CFont::iconKernel());
     ui->tabs->setTabToolTip(KERNEL_TAB_INDEX, "Kernel");
+    ui->tabs->setTabText(ISP_TAB_INDEX, CFont::iconDownloadAlt());
+    ui->tabs->setTabToolTip(ISP_TAB_INDEX, "ISP");
     ui->tabs->setTabText(FILEBROWSER_TAB_INDEX, CFont::iconFolderClose());
     ui->tabs->setTabToolTip(FILEBROWSER_TAB_INDEX, "Filebrowser");
     ui->tabs->setTabText(TERMINAL_TAB_INDEX, CFont::iconTerminal());
@@ -50,6 +51,8 @@ CaosInterface::CaosInterface(QWidget *parent) :
             this, SLOT(applicationUpdated(QString, QString, QString)) );
     connect(ui->kernelTab, SIGNAL(projectUpdated(QString, QString, QString)),
             this, SLOT(kernelUpdated(QString, QString, QString)) );
+    connect(ui->ispTab, SIGNAL(installKernel()), this, SIGNAL(installKernel()));
+    connect(ui->kernelTab, SIGNAL(installApps()), this, SIGNAL(installApps()));
 
     infoTimer.setInterval(1000);
     consoleInfo = false;
@@ -107,6 +110,16 @@ void CaosInterface::setLink(CLink * d){
     on_tabs_currentChanged( ui->tabs->currentIndex() );
 }
 
+void CaosInterface::installKernelRequest(void){
+    ui->tabs->setCurrentIndex(KERNEL_TAB_INDEX);
+    ui->kernelTab->installKernel();
+}
+
+
+void CaosInterface::installAppsRequest(void){
+    ui->tabs->setCurrentIndex(APPLICATION_TAB_INDEX);
+    ui->applicationTab->installAll();
+}
 
 void CaosInterface::showPreferences(void){
     ui->tabs->setCurrentIndex(PREFERENCES_TAB_INDEX);
@@ -231,6 +244,7 @@ void CaosInterface::runApplicationInTerminal(QString path){
     CNotify notify;
     QFileInfo info;
     int pid;
+
 
     if( path == "" ){
         path = lastApp;

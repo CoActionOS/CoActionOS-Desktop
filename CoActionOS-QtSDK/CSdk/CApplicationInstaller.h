@@ -22,6 +22,8 @@ public:
 
   void setLink(CLink * d);
 
+  void installAll(void);
+
 signals:
   void runApplication(QString path);
   int isRunning(QString);

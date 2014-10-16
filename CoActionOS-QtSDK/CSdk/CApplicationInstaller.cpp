@@ -117,6 +117,8 @@ void CApplicationInstaller::projectSelected(QString name){
 
 void CApplicationInstaller::on_installButton_clicked()
 {
+    int i;
+    int total;
     if ( link()->connected() == false ){
         return;
     }
@@ -124,8 +126,22 @@ void CApplicationInstaller::on_installButton_clicked()
     CNotify::updateProgress(0, 0);
     qApp->processEvents();
 
-    install();
 
+    if( ui->installAllCheckBox->isChecked() ){
+        total = ui->installer->count();
+        for(i=0; i < total; i++){
+            ui->installer->setCurrentProject(i);
+            install();
+        }
+    } else {
+        install();
+    }
+
+}
+
+void CApplicationInstaller::installAll(void){
+    ui->installAllCheckBox->setChecked();
+    on_installButton_clicked();
 }
 
 void CApplicationInstaller::on_uninstallButton_clicked()
@@ -202,6 +218,8 @@ int CApplicationInstaller::install(void){
     CNotify notify;
     QFile binFile;
     link_appfs_file_t appfsFile;
+
+
 
     if( ui->installPath->lineEdit()->text() == "" ){
         notify.execError("Invalid install path");

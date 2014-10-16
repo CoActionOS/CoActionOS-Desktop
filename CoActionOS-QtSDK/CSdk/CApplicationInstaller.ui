@@ -158,6 +158,13 @@
             </widget>
            </item>
            <item>
+            <widget class="CCheckbox" name="installAllCheckBox">
+             <property name="text">
+              <string>All</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -307,15 +314,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CCheckbox</class>
-   <extends>QLabel</extends>
-   <header>CSdk/CCheckbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>CLineEdit</class>
    <extends>QWidget</extends>
    <header>CSdk/CLineEdit.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CCheckbox</class>
+   <extends>QLabel</extends>
+   <header>CSdk/CCheckbox.h</header>
   </customwidget>
   <customwidget>
    <class>CInstaller</class>

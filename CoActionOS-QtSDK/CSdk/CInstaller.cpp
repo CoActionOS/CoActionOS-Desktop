@@ -293,3 +293,11 @@ void CInstaller::showLabels(bool v){
     ui->clearConfigurationsButton->setVisible(v);
 }
 
+int CInstaller::count() const{
+    return ui->projectNameComboBox->count();
+}
+
+void CInstaller::setCurrentProject(int index){
+    ui->projectNameComboBox->setCurrentIndex(index);
+}
+

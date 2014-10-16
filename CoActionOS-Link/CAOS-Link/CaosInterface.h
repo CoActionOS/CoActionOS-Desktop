@@ -29,6 +29,7 @@ public:
     enum {
         APPLICATION_TAB_INDEX = 0,
         KERNEL_TAB_INDEX,
+        ISP_TAB_INDEX,
         FILEBROWSER_TAB_INDEX,
         TERMINAL_TAB_INDEX,
         DEBUG_TAB_INDEX,
@@ -40,6 +41,9 @@ public:
     void setLink(CLink * device);
     CDebug * debug();
 
+    void installKernelRequest(void);
+    void installAppsRequest(void);
+
 signals:
     void updateProgress(QString msg, int progress, int max);
     void operationComplete(QString,bool);
@@ -47,7 +51,11 @@ signals:
     void error(QString msg);
     void init(void);
 
+    void installKernel(void);
+    void installApps(void);
+
 private slots:
+
     void on_tabs_currentChanged(int index);
     void runApplicationInTerminal(QString path);
 

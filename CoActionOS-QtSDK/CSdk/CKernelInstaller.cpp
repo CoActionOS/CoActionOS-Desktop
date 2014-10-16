@@ -180,10 +180,17 @@ void CKernelInstaller::on_installButton_clicked()
 
     CNotify::updateProgress(0, 0, false);
 
-
     link()->reset();
 
+    if( ui->installAppsCheckbox->isChecked() ){
+        emit installApps();
+    }
+
     return;
+}
+
+void CKernelInstaller::installKernel(void){
+    on_installButton_clicked();
 }
 
 

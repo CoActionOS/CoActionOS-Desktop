@@ -36,7 +36,8 @@ SOURCES += CSdk.cpp \
     CNotification.cpp \
     CDebug.cpp \
     CTextEdit.cpp \
-    CListWidget.cpp
+    CListWidget.cpp \
+    CIsp.cpp
 
 HEADERS += CSdk.h\
     CSdk_global.h \
@@ -62,7 +63,8 @@ HEADERS += CSdk.h\
     CNotification.h \
     CDebug.h \
     CTextEdit.h \
-    CListWidget.h
+    CListWidget.h \
+    CIsp.h
 
 FORMS += \
     CTerminal.ui \
@@ -75,7 +77,8 @@ FORMS += \
     CInstaller.ui \
     CKernelInstaller.ui \
     CNotification.ui \
-    CDebug.ui
+    CDebug.ui \
+    CIsp.ui
 
 OTHER_FILES += \
     fontawesome-webfont.ttf \

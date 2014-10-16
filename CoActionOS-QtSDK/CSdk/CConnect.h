@@ -23,11 +23,6 @@ public:
     void refresh(void);
     CLink * clink(){ return &clink_; }
 
-
-
-signals:
-    void linked(bool isConnected);
-
 public slots:
     void connectRequested(bool suppressError);
 

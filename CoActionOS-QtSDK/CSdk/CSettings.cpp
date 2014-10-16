@@ -74,11 +74,11 @@ QString CSettings::getStringKey(QString key){
 }
 
 
-QStringList CSettings::getStringListKey(int key){
+QStringList CSettings::getStringListKey(int a){
   if( settings == 0 ){
       return QStringList();
     }
-  return settings->value(keys.at(key)).toStringList();
+  return settings->value(keys.at(a)).toStringList();
 }
 
 QStringList CSettings::getStringListKey(QString key){

@@ -60,6 +60,9 @@ private slots:
     void notified(int severity);
     void notificationDismissed(int v);
 
+    void installKernelRequest(void);
+    void installAppsRequest(void);
+
 };
 
 #endif // CAOSLINK_H

@@ -21,11 +21,17 @@ public:
 
   void addKey(QString);
   QString getStringKey(int);
+  QString stringKey(int a){ return getStringKey(a); }
   QString getStringKey(QString);
+  QString stringKey(QString a){ return getStringKey(a); }
   QStringList getStringListKey(int);
+  QStringList stringListKey(int a){ return getStringListKey(a); }
   QStringList getStringListKey(QString);
-  bool getBoolKey(int);
+  QStringList stringListKey(QString a){ return getStringListKey(a); }
+  bool getBoolKey(int a);
+  bool boolKey(int a){ return getBoolKey(a); }
   bool getBoolKey(QString);
+  bool boolKey(QString a){ return getBoolKey(a); }
   void setKey(int, QStringList);
   void setKey(QString, QStringList);
   void setKey(int, QString);

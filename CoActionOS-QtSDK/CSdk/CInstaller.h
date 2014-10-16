@@ -31,6 +31,9 @@ public:
 
   void showLabels(bool v = true);
 
+  int count() const;
+  void setCurrentProject(int index);
+
   enum {
       INVALID_SIGNATURE = 0xFFFFFFFF
   };
