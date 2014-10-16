@@ -112,6 +112,8 @@ CDebug::CDebug(QWidget *parent) :
 
     trace_id = 0;
     connect(&traceTimer, SIGNAL(timeout()), this, SLOT(traceTimerExpired()));
+
+    loadPreferences();
 }
 
 CDebug::~CDebug()
@@ -421,16 +423,24 @@ void CDebug::startPidTrace(int pid){
     int pidIndex;
     int i;
 
-    //refresh the process list
-    on_refreshPidButton_clicked();
 
-    //now find the pid in the list
-    for(i=0; i < ui->pidComboBox->count(); i++){
-        pidIndex = descToPid(ui->pidComboBox->itemText(i));
-        if( pidIndex == pid ){
-            ui->pidComboBox->setCurrentIndex(i);
-            on_startTraceButton_clicked();
-            return;
+    if( ui->autoLaunchCheckbox->isChecked() == true ){
+
+        if( trace_id != 0 ){
+            on_stopTraceButton_clicked(); //stop current trace
+        }
+
+        //refresh the process list
+        on_refreshPidButton_clicked();
+
+        //now find the pid in the list
+        for(i=0; i < ui->pidComboBox->count(); i++){
+            pidIndex = descToPid(ui->pidComboBox->itemText(i));
+            if( pidIndex == pid ){
+                ui->pidComboBox->setCurrentIndex(i);
+                on_startTraceButton_clicked();
+                return;
+            }
         }
     }
 

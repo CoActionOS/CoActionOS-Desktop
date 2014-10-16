@@ -13,6 +13,7 @@
 #include <CSdk/CFont.h>
 #include <QFileInfo>
 
+
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CaosInterface){
@@ -275,11 +276,9 @@ void CaosInterface::runApplicationInTerminal(QString path){
         }
     }
 
-
     ui->terminalTab->openTerminal();
     err = link()->runApp( path.toStdString() );
 
-    ui->debugTab->applicationLaunched(path);
 
     if ( err >= 0 ){
         ui->tabs->setCurrentIndex( TERMINAL_TAB_INDEX );
