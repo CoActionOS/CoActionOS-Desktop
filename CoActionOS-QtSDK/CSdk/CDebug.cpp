@@ -417,12 +417,38 @@ void CDebug::on_refreshPidButton_clicked()
     link()->close(fd);
 }
 
+void CDebug::startPidTrace(int pid){
+    int pidIndex;
+    int i;
+
+    //refresh the process list
+    on_refreshPidButton_clicked();
+
+    //now find the pid in the list
+    for(i=0; i < ui->pidComboBox->count(); i++){
+        pidIndex = descToPid(ui->pidComboBox->itemText(i));
+        if( pidIndex == pid ){
+            ui->pidComboBox->setCurrentIndex(i);
+            on_startTraceButton_clicked();
+            return;
+        }
+    }
+
+    CNotify::updateStatus("Trace not started for " + QString::number(pid));
+
+}
+
+int CDebug::descToPid(QString desc){
+    QStringList list;
+    list = desc.split(":");
+    return list.at(0).toInt();
+}
+
+
 void CDebug::on_startTraceButton_clicked()
 {
     CNotify notify;
     int pid;
-    QString pidDesc;
-    QStringList list;
 
     //create a trace for the PID in the combo box
     if( link()->isConnected() == false ){
@@ -431,16 +457,14 @@ void CDebug::on_startTraceButton_clicked()
     }
 
     if( trace_id != 0 ){
-        notify.execError("Trace has not been shutdown");
+        CNotify::updateStatus("Trace has not been shutdown");
         return;
     }
 
-    pidDesc = ui->pidComboBox->currentText();
-    list = pidDesc.split(":");
-    pid = list.at(0).toInt();
+    pid = descToPid(ui->pidComboBox->currentText());
 
     if( link()->trace_create(pid, &trace_id) < 0 ){
-        notify.execError("Failed to create trace");
+        CNotify::updateStatus("Failed to create trace");
         return;
     }
 

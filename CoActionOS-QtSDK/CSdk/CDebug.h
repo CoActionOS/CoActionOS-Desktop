@@ -29,6 +29,8 @@ public:
     void loadPreferences();
     void savePreferences();
 
+    void startPidTrace(int pid);
+
 public slots:
     void currentAppUpdated(QString workspace, QString project, QString conf);
     void currentKernelUpdated(QString workspace, QString project, QString conf);
@@ -54,6 +56,8 @@ private slots:
 private:
     Ui::CDebug *ui;
     void resizeEvent(QResizeEvent * event);
+
+    int descToPid(QString desc);
 
     link_trace_id_t trace_id;
     QTimer traceTimer;

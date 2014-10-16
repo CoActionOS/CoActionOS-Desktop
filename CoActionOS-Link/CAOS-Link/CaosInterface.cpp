@@ -275,6 +275,7 @@ void CaosInterface::runApplicationInTerminal(QString path){
         }
     }
 
+
     ui->terminalTab->openTerminal();
     err = link()->runApp( path.toStdString() );
 
@@ -286,5 +287,9 @@ void CaosInterface::runApplicationInTerminal(QString path){
     } else {
         notify.execError(errorMessage());
     }
+
+    //open trace on newly run program
+    ui->debugTab->startPidTrace(err);
+
 }
 

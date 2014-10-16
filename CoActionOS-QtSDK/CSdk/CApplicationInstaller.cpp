@@ -219,8 +219,6 @@ int CApplicationInstaller::install(void){
     QFile binFile;
     link_appfs_file_t appfsFile;
 
-
-
     if( ui->installPath->lineEdit()->text() == "" ){
         notify.execError("Invalid install path");
         return -1;
@@ -356,6 +354,8 @@ int CApplicationInstaller::installApp(){
     }
 
     installPath = ui->installPath->lineEdit()->text();
+
+    if( installPath.startsWith("/app") ){
     fd = link()->open(installPath.toStdString(), LINK_O_WRONLY);
     if( fd < 0 ){
         sourceFile.close();
@@ -401,6 +401,12 @@ int CApplicationInstaller::installApp(){
 
     CNotify::updateProgress(0, 0, false);
     CNotify::updateStatus(ui->installer->project() + " install complete");
+
+    } else {
+        //copy the file to the destination directory
+        CFileBrowser::copyFileToDevice(link(), sourcePath, installPath);
+        CNotify::updateProgress(0, 0, false);
+    }
 
     return 0;
 }
