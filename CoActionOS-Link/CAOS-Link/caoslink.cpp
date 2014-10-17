@@ -137,7 +137,7 @@ void Caoslink::installKernelRequest(void){
     //first connect
     i = 0;
     do {
-        QThread::usleep(100*1000);
+        QThread::usleep(150*1000);
         ui->connectWidget->refresh();
         ui->connectWidget->connectRequested(true);
         qApp->processEvents();
@@ -159,7 +159,7 @@ void Caoslink::installAppsRequest(void){
     //first connect
     i = 0;
     do {
-        QThread::usleep(100*1000);
+        QThread::usleep(150*1000);
         ui->connectWidget->refresh();
         ui->connectWidget->connectRequested(true);
         qApp->processEvents();

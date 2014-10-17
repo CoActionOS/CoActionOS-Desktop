@@ -41,6 +41,8 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     ui->filesInstallButton->setText(CFont::iconCopy());
     ui->filesInstallButton->setToolTip("Install associated files");
 
+    ui->installAllCheckBox->setToolTip("Install all workspace applications");
+
     ui->installPath->setObjectName("unified");
     connect(ui->installPath->lineEdit(), SIGNAL(editingFinished()), this, SLOT(installPathUpdated()));
 
