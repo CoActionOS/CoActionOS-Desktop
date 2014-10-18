@@ -74,7 +74,7 @@
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>0</number>
          </property>
          <property name="verticalSpacing">
           <number>4</number>

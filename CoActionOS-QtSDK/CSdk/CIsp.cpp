@@ -138,25 +138,24 @@ void CIsp::on_hideOptionsButton_clicked()
 {
 
     optionsVisible = !optionsVisible;
-    bool hidden = optionsVisible;
-    ui->filenameLabel->setVisible(!hidden);
-    ui->filename->setVisible(!hidden);
-    ui->uartLock->setVisible(!hidden);
-    ui->uartLabel->setVisible(!hidden);
-    ui->uartComboBox->setVisible(!hidden);
-    ui->uartSpinBox->setVisible(!hidden);
+    ui->filenameLabel->setVisible(optionsVisible);
+    ui->filename->setVisible(optionsVisible);
+    ui->uartLock->setVisible(optionsVisible);
+    ui->uartLabel->setVisible(optionsVisible);
+    ui->uartComboBox->setVisible(optionsVisible);
+    ui->uartSpinBox->setVisible(optionsVisible);
 
-    ui->resetLabel->setVisible(!hidden);
-    ui->resetComboBox->setVisible(!hidden);
-    ui->resetSpinBox->setVisible(!hidden);
+    ui->resetLabel->setVisible(optionsVisible);
+    ui->resetComboBox->setVisible(optionsVisible);
+    ui->resetSpinBox->setVisible(optionsVisible);
 
-    ui->ispreqLabel->setVisible(!hidden);
-    ui->ispreqComboBox->setVisible(!hidden);
-    ui->ispreqSpinBox->setVisible(!hidden);
-    ui->connect->setVisible(!hidden);
+    ui->ispreqLabel->setVisible(optionsVisible);
+    ui->ispreqComboBox->setVisible(optionsVisible);
+    ui->ispreqSpinBox->setVisible(optionsVisible);
+    ui->connect->setVisible(optionsVisible);
 
-    ui->optionsLabel->setVisible(!hidden);
-    ui->installKernel->setVisible(!hidden);
+    ui->optionsLabel->setVisible(optionsVisible);
+    ui->installKernel->setVisible(optionsVisible);
 
 }
 
@@ -170,7 +169,13 @@ void CIsp::resizeEvent(QResizeEvent * event){
     ui->resetLabel->setVisible(visible);
     ui->ispreqLabel->setVisible(visible);
     ui->optionsLabel->setVisible(visible);
-    ui->terminalOptionsLabel->setVisible(visible);
+
+    if( size().width() < 575){
+        ui->terminalOptionsLabel->setVisible(false);
+    } else {
+        ui->terminalOptionsLabel->setVisible(true);
+    }
+
     event = 0;
 }
 

@@ -12,6 +12,8 @@
 #include <CSdk/CNotify.h>
 #include <CSdk/CFont.h>
 #include <QFileInfo>
+#include <CSdk/CEventFilter.h>
+
 
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),
@@ -68,6 +70,10 @@ CaosInterface::CaosInterface(QWidget *parent) :
 
     ui->kernelTab->setProject( Preferences::kernelProject() );
     ui->kernelTab->setConfiguration( Preferences::kernelConfiguration() );
+
+    CEventFilter * wheelFilter = new CEventFilter(QEvent::Wheel);
+
+    ui->tabs->tabBar()->installEventFilter(wheelFilter);
 
 }
 

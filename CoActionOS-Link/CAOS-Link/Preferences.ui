@@ -134,37 +134,6 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="terminalAppendModeLabel">
-         <property name="text">
-          <string>Append Mode:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="CCheckbox" name="terminalAppendModeCheckBox">
-         <property name="text">
-          <string>On</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="terminalWarnOverwriteLabel">
-         <property name="text">
-          <string>Warn on Overwrite:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="CCheckbox" name="terminalWarnOverwriteCheckBox">
-         <property name="text">
-          <string>On</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout"/>
-       </item>
        <item row="6" column="1">
         <layout class="QHBoxLayout" name="terminalMaximumSizeHorizontalLayout_2">
          <item>
@@ -187,6 +156,31 @@
           <widget class="QLabel" name="terminalLogFileStatusLabel">
            <property name="text">
             <string>OK</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="terminalAppendModeLabel">
+         <property name="text">
+          <string>Log Options:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <layout class="QHBoxLayout" name="terminalMaximumSizeHorizontalLayout_3">
+         <item>
+          <widget class="CCheckbox" name="terminalAppendModeCheckBox">
+           <property name="text">
+            <string>Append</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="CCheckbox" name="terminalWarnOverwriteCheckBox">
+           <property name="text">
+            <string>Overwrite</string>
            </property>
           </widget>
          </item>
@@ -237,14 +231,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CLock</class>
-   <extends>QLabel</extends>
-   <header>CSdk/CLock.h</header>
-  </customwidget>
-  <customwidget>
    <class>CCheckbox</class>
    <extends>QLabel</extends>
    <header>CSdk/CCheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CLock</class>
+   <extends>QLabel</extends>
+   <header>CSdk/clock.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

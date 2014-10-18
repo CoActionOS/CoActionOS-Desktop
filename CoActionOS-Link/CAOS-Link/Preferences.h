@@ -49,11 +49,13 @@ private slots:
     void nohighlights(void);
 
     void terminalLogFileLineEdit_editingFinished();
-    void on_terminalMaximumSizeLockCheckBox_toggled(bool checked);
     void on_terminalAppendModeCheckBox_clicked(bool checked);
     void on_terminalWarnOverwriteCheckBox_clicked(bool checked);
     void on_savePreferencesButton_clicked();
     void savePreferencesButton_complete(QString name);
+
+    void terminalMaximumSizeToggled(bool checked);
+
 
 private:
     Ui::Preferences *ui;

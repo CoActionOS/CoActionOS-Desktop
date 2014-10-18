@@ -37,9 +37,7 @@ Preferences::Preferences(QWidget *parent) :
   ui->terminalMaximumSizeLockCheckBox->setToolTip("Lock/unlock maximum size");
   ui->terminalMaximumSizeSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
   ui->terminalMaximumSizeSpinBox->setToolTip("Maximum memory size of terminal");
-  ui->terminalAppendModeLabel->setToolTip("Append all data to one file (otherwise truncate)");
   ui->terminalAppendModeCheckBox->setToolTip("Append all data to one file (otherwise truncate)");
-  ui->terminalWarnOverwriteLabel->setToolTip("Warn before truncating log");
   ui->terminalWarnOverwriteCheckBox->setToolTip("Warn before truncating log");
   ui->terminalLogFile->setObjectName("unified");
   ui->terminalLogFile->setBrowseVisible(true);
@@ -58,6 +56,7 @@ Preferences::Preferences(QWidget *parent) :
           this, SLOT(terminalLogFileLineEdit_editingFinished()));
 
   connect(ui->terminalMaximumSizeLockCheckBox, SIGNAL(clicked(bool)), ui->terminalMaximumSizeSpinBox, SLOT(setEnabled(bool)));
+  connect(ui->terminalMaximumSizeLockCheckBox, SIGNAL(clicked(bool)), this, SLOT(terminalMaximumSizeToggled(bool)));
 
   lastMaxSize = ui->terminalMaximumSizeSpinBox->value();
   qDebug("Preferences Init Complete");
@@ -112,6 +111,7 @@ QString Preferences::terminalMaximumSize(void){
   CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getStringKey("KEY_TERMINALMAXIMUMSIZE");
 }
+
 QString Preferences::terminalLogFile(void){
   CSettings s(QSettings::UserScope, Caoslink::appName());
   return s.getStringKey("KEY_TERMINALLOGFILE");
@@ -219,20 +219,17 @@ void Preferences::terminalLogFileLineEdit_editingFinished(){
          ui->terminalLogFile->lineEdit()->text());
 }
 
-void Preferences::on_terminalMaximumSizeLockCheckBox_toggled(bool checked)
+void Preferences::terminalMaximumSizeToggled(bool checked)
 {
-  CNotify notify;
-
-  if( checked == false ){
+  if( checked == true ){
       lastMaxSize = ui->terminalMaximumSizeSpinBox->value();
     }
 
-
-  if( (checked) && (lastMaxSize != ui->terminalMaximumSizeSpinBox->value()) ){
+  if( (!checked) && (lastMaxSize != ui->terminalMaximumSizeSpinBox->value()) ){
       settings.setKey("KEY_TERMINALMAXIMUMSIZE",
              QString::number(ui->terminalMaximumSizeSpinBox->value())
              );
-      notify.execInfo("Change will be applied when program is restarted.");
+      CNotify::updateStatus("Change will be applied when program is restarted.");
     }
 }
 

@@ -9,6 +9,7 @@
 #include "CInstaller.h"
 #include "CCompress.h"
 #include "CFileBrowser.h"
+#include "CEventFilter.h"
 
 CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
     QWidget(parent),
@@ -67,6 +68,9 @@ CApplicationInstaller::CApplicationInstaller(QWidget *parent) :
 
     connected(false);
     qDebug("CApplicationInstaller Done");
+
+    CEventFilter * wheelFilter = new CEventFilter(QEvent::Wheel);
+    ui->dataSizeSpinBox->installEventFilter(wheelFilter);
 }
 
 CApplicationInstaller::~CApplicationInstaller()

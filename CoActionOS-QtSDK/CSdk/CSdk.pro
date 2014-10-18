@@ -64,7 +64,8 @@ HEADERS += CSdk.h\
     CDebug.h \
     CTextEdit.h \
     CListWidget.h \
-    CIsp.h
+    CIsp.h \
+    CEventFilter.h
 
 FORMS += \
     CTerminal.ui \

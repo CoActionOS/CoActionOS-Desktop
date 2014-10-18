@@ -11,6 +11,7 @@
 #include <hwpl/Link.h>
 #include <CSdk/CLinkPtr.h>
 #include <CSdk/CDebug.h>
+#include <CSdk/CEventFilter.h>
 
 namespace Ui {
 class CaosInterface;
