@@ -125,6 +125,7 @@ CIsp::CIsp(QWidget *parent) :
 
     thisptr = this;
     abort = false;
+    optionsVisible = true;
 
 }
 
@@ -135,7 +136,9 @@ CIsp::~CIsp()
 
 void CIsp::on_hideOptionsButton_clicked()
 {
-    bool hidden = ui->filename->isVisible();
+
+    optionsVisible = !optionsVisible;
+    bool hidden = optionsVisible;
     ui->filenameLabel->setVisible(!hidden);
     ui->filename->setVisible(!hidden);
     ui->uartLock->setVisible(!hidden);
@@ -159,7 +162,7 @@ void CIsp::on_hideOptionsButton_clicked()
 
 void CIsp::resizeEvent(QResizeEvent * event){
     bool visible = true;
-    if( size().width() < 575 ){
+    if( (size().width() < 575) || (optionsVisible == false) ){
         visible = false;
     }
     ui->filenameLabel->setVisible(visible);

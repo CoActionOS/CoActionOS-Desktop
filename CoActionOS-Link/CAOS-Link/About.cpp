@@ -54,6 +54,11 @@ void About::setLink(CLink *d){
 
 
 void About::connected(bool value){
+    if( link() != 0 ){
+        if( link()->isBootloader() == true ){
+            value = false;
+        }
+    }
     ui->coactionosNameIconLabel->setAlignment(Qt::AlignCenter);
     ui->coactionosNameIconLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     ui->coactionosVersionIconLabel->setAlignment(Qt::AlignCenter);

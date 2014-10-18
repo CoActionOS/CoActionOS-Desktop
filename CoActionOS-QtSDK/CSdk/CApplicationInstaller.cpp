@@ -80,6 +80,12 @@ void CApplicationInstaller::setLink(CLink * d){
 }
 
 void CApplicationInstaller::connected(bool arg1){
+
+    if( link() != 0 ){
+        if( link()->isBootloader() == true ){
+            arg1 = false;
+        }
+    }
     ui->installButton->setEnabled(arg1);
     ui->uninstallButton->setEnabled(arg1);
     ui->filesInstallButton->setEnabled(arg1);
@@ -358,51 +364,51 @@ int CApplicationInstaller::installApp(){
     installPath = ui->installPath->lineEdit()->text();
 
     if( installPath.startsWith("/app") ){
-    fd = link()->open(installPath.toStdString(), LINK_O_WRONLY);
-    if( fd < 0 ){
-        sourceFile.close();
-        notify.execError("Failed to open install file on device");
-        return -1;
-    }
-
-    attr.loc = 0;
-
-    bytesTotal = sourceFile.size();
-    bytesCum = 0;
-
-    do {
-        memset(attr.buffer, 0xFF, APPFS_PAGE_SIZE);
-        bytesRead = sourceFile.read((char*)attr.buffer, APPFS_PAGE_SIZE);
-        if( bytesRead > 0 ){
-            attr.nbyte = bytesRead;
-            bytesCum += attr.nbyte;
-            if( link()->ioctl(fd, I_APPFS_INSTALL, &attr) < 0 ){
-                link()->close(fd);
-                sourceFile.close();
-                notify.execLinkError(link_errno);
-                return -1;
-            }
-            notify.updateProgress(bytesCum, bytesTotal);
-            attr.loc += APPFS_PAGE_SIZE;
+        fd = link()->open(installPath.toStdString(), LINK_O_WRONLY);
+        if( fd < 0 ){
+            sourceFile.close();
+            notify.execError("Failed to open install file on device");
+            return -1;
         }
-    } while( bytesRead == APPFS_PAGE_SIZE );
 
-    if( link()->close(fd) < 0 ){
-        notify.execLinkError(link_errno);
-    }
+        attr.loc = 0;
 
-    sourceFile.close();
+        bytesTotal = sourceFile.size();
+        bytesCum = 0;
 
-    if( ui->optionsFilesCheckBox->isChecked() == true ){
-        on_filesInstallButton_clicked();
-    }
+        do {
+            memset(attr.buffer, 0xFF, APPFS_PAGE_SIZE);
+            bytesRead = sourceFile.read((char*)attr.buffer, APPFS_PAGE_SIZE);
+            if( bytesRead > 0 ){
+                attr.nbyte = bytesRead;
+                bytesCum += attr.nbyte;
+                if( link()->ioctl(fd, I_APPFS_INSTALL, &attr) < 0 ){
+                    link()->close(fd);
+                    sourceFile.close();
+                    notify.execLinkError(link_errno);
+                    return -1;
+                }
+                notify.updateProgress(bytesCum, bytesTotal);
+                attr.loc += APPFS_PAGE_SIZE;
+            }
+        } while( bytesRead == APPFS_PAGE_SIZE );
 
-    if ( ui->optionsRunCheckBox->isChecked() ){
-        emit runApplication( projectRunPath() );
-    }
+        if( link()->close(fd) < 0 ){
+            notify.execLinkError(link_errno);
+        }
 
-    CNotify::updateProgress(0, 0, false);
-    CNotify::updateStatus(ui->installer->project() + " install complete");
+        sourceFile.close();
+
+        if( ui->optionsFilesCheckBox->isChecked() == true ){
+            on_filesInstallButton_clicked();
+        }
+
+        if ( ui->optionsRunCheckBox->isChecked() ){
+            emit runApplication( projectRunPath() );
+        }
+
+        CNotify::updateProgress(0, 0, false);
+        CNotify::updateStatus(ui->installer->project() + " install complete");
 
     } else {
         //copy the file to the destination directory

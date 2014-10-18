@@ -88,6 +88,13 @@ void CFileBrowser::setLink(CLink * d){
 
 
 void CFileBrowser::connected(bool value){
+
+    if( link() != 0 ){
+        if( link()->isBootloader() == true ){
+            value = false;
+        }
+    }
+
     ui->refreshButton->setEnabled(value);
     ui->deleteButton->setEnabled(value);
     ui->uploadButton->setEnabled(value);

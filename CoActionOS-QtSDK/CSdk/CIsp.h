@@ -44,6 +44,7 @@ private:
     void resizeEvent(QResizeEvent * event);
     Ui::CIsp *ui;
     bool abort;
+    bool optionsVisible;
     QTimer terminalTimer;
     Uart * terminalUart;
 };

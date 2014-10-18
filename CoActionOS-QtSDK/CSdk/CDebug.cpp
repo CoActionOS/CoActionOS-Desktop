@@ -280,6 +280,13 @@ void CDebug::appendLog(QString text, const QColor & textColor){
 
 void CDebug::connected(bool arg){
     CNotify notify;
+
+    if( link() != 0 ){
+        if( link()->isBootloader() == true ){
+            arg = false;
+        }
+    }
+
     ui->startTraceButton->setEnabled(arg);
     ui->stopTraceButton->setEnabled(false);
     ui->pidComboBox->setEnabled(arg);

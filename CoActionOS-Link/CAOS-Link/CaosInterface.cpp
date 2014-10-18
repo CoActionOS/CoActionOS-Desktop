@@ -13,7 +13,6 @@
 #include <CSdk/CFont.h>
 #include <QFileInfo>
 
-
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CaosInterface){

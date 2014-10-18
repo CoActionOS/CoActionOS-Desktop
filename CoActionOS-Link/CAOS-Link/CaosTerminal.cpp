@@ -76,6 +76,13 @@ void CaosTerminal::setLink(CLink * d){
 
 
 void CaosTerminal::linked(bool arg1){
+
+    if( link() != 0 ){
+        if( link()->isBootloader() == true ){
+            arg1 = false;
+        }
+    }
+
   if( arg1 == false ){
       this->closeTerminal();
       inFd = -1;
