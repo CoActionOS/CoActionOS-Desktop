@@ -37,7 +37,7 @@ public:
     int execPrompt(QString);
 
     static void setUpdateObjects(QStatusBar * statusBar, QProgressBar * progressBar, CDebug * debug);
-    static void updateStatus(QString status);
+    static void updateStatus(const QString & status);
     static void updateProgress(int progress, int max, bool showprogress = true);
 
 private slots:

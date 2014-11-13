@@ -32,7 +32,6 @@ Caoslink::Caoslink(QWidget *parent) :
 {
     CNotify notify;
     notify.updateStatus("");
-    CSettings settings(QSettings::UserScope);
     qDebug("CAOS Init");
     CLink * linkDevice;
     QCoreApplication::setOrganizationName("CoActionOS, Inc");
@@ -41,7 +40,7 @@ Caoslink::Caoslink(QWidget *parent) :
     QCoreApplication::setApplicationVersion(COACTIONOS_LINK_VERSION);
 
     CFont::init();
-    link_set_debug(1);
+    link_set_debug(100);
     ui->setupUi(this);
     resize( Preferences::windowSize() );
 

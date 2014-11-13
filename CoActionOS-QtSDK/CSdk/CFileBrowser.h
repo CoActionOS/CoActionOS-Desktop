@@ -21,7 +21,8 @@ public:
     void loadDirectory(QTreeWidgetItem * treeItem);
     void setLink(CLink * d);
 
-    static bool copyFileToDevice(CLink * d, QString filename, QString targetDir);
+    static bool copyFileToDevice(CLink * d, const QString & filename, const QString & targetDir);
+    static bool copyFilesToDevice(CLink * d, const QStringList & filenames, const QString & targetDir);
     static bool copyDirToDevice(CLink * d, QString srcDir, QString targetDir);
 
 signals:
@@ -34,8 +35,8 @@ private slots:
     void createDirectory(void);
     void loadFileFromDevice(void);
     void runApp(void);
-    void saveFileToDeviceSelected(QString );
-    void loadFileFromDeviceSelected(QString );
+    void saveFileToDeviceSelected(QStringList);
+    void loadFileFromDeviceSelected(QString);
     void connected(bool value);
     void formatFilesystem(void);
 

@@ -2,6 +2,9 @@
 #include "ui_CKernelInstaller.h"
 
 #include <QTimer>
+#include <QFile>
+#include <dev/mem.h>
+#include <applib/Device.hpp>
 
 #include "CKernelSettings.h"
 #include "CFont.h"
@@ -23,6 +26,12 @@ CKernelInstaller::CKernelInstaller(QWidget *parent) :
     ui->installButton->setObjectName("blueButton");
     ui->installButton->setText(CFont::iconDownloadAlt());
     ui->installButton->setToolTip("Install kernel on device");
+
+    ui->uploadButton->setObjectName("blueButton");
+    ui->uploadButton->setText(CFont::iconUploadAlt());
+    ui->uploadButton->setToolTip("Load kernel to file");
+    ui->uploadButton->setVisible(false);
+
     ui->verifyInstallCheckBox->setToolTip("Verify kernel after install");
 
     ui->installer->setSettings(CKernelSettings::settings());
@@ -209,3 +218,54 @@ void CKernelInstaller::resizeEvent(QResizeEvent * event){
     event = 0;
 }
 
+
+void CKernelInstaller::on_uploadButton_clicked()
+{
+
+    Device mem;
+    int offset;
+    int ret;
+    char buffer[1024];
+    mem_attr_t attr;
+
+    mem.sethandle(link()->handle());
+
+    if( mem.open("/dev/mem0", LINK_O_RDWR) < 0 ){
+        CNotify::updateStatus("Failed to open /dev/mem");
+        return;
+    }
+
+    if( mem.ioctl(I_MEM_GETATTR, &attr) < 0 ){
+        CNotify::updateStatus("Failed to get mem attr");
+        mem.close();
+        return;
+    }
+
+    //open /dev/mem and copy data to a file in the project folder
+    QFile f(ui->installer->configurationPath() + "/kernel-image.bin");
+
+    if( f.open(QFile::WriteOnly | QFile::Truncate | QFile::Append) == false ){
+        CNotify::updateStatus("Failed to open " + f.fileName());
+        mem.close();
+        return;
+    }
+
+    offset = 0;
+    do {
+
+        ret = mem.read(offset, buffer, 1024);
+        if( ret > 0 ){
+            f.write(buffer, ret);
+            offset += ret;
+        }
+
+        CNotify::updateProgress(offset, attr.flash_size, true);
+
+    } while(ret > 0);
+
+    f.close();
+    mem.close();
+
+    CNotify::updateProgress(0, 0, false);
+
+}

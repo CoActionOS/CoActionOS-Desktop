@@ -4,7 +4,6 @@
  */
 
 #include <CSdk/CFont.h>
-
 #include "CaosInterface.h"
 #include "Preferences.h"
 #include "ui_CaosInterface.h"
@@ -13,7 +12,6 @@
 #include <CSdk/CFont.h>
 #include <QFileInfo>
 #include <CSdk/CEventFilter.h>
-
 
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),

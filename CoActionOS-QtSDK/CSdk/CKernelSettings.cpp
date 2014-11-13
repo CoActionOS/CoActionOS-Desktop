@@ -10,6 +10,3 @@ CKernelSettings::CKernelSettings(QString projectPath, bool create) :
   addKey("KEY_startaddr");
   addKey("KEY_downloadsymbols");
 }
-
-
-

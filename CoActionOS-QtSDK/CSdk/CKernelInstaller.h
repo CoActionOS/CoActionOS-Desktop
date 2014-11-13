@@ -38,6 +38,8 @@ private slots:
   void on_installButton_clicked();
   void on_verifyInstallCheckBox_clicked(bool checked);
 
+  void on_uploadButton_clicked();
+
 private:
   Ui::CKernelInstaller *ui;
 

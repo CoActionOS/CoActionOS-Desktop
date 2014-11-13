@@ -331,7 +331,7 @@ void CIsp::programTarget(void)
 
   if( (ret = current->initphy(ui->uartSpinBox->value())) < 0 ){
       qDebug("INIT PHY ERROR");
-      notify.updateStatus("Failed to init UART " + QString::number(ret));
+      notify.updateStatus("Failed to init phy " + QString::number(ret));
     }
 
   qDebug("INIT PHY COMPLETE");

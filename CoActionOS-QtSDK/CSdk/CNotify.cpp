@@ -68,7 +68,7 @@ void CNotify::setUpdateObjects(QStatusBar * statusBar, QProgressBar * progressBa
     CNotify::debug = debug;
 }
 
-void CNotify::updateStatus(QString status){
+void CNotify::updateStatus(const QString & status){
     QStringList newList;
     int i;
     if( msgTimer == 0 ){

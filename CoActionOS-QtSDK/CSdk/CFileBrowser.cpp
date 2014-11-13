@@ -171,18 +171,18 @@ void CFileBrowser::saveFileToDevice(void){
     //Copy file to the device
     QFileDialog fileDialog;
     connect(&fileDialog,
-            SIGNAL(fileSelected(QString)),
+            SIGNAL(filesSelected(QStringList)),
             this,
-            SLOT(saveFileToDeviceSelected(QString)), Qt::QueuedConnection);
-    fileDialog.setFileMode(QFileDialog::ExistingFile);
+            SLOT(saveFileToDeviceSelected(QStringList)), Qt::QueuedConnection);
+    fileDialog.setFileMode(QFileDialog::ExistingFiles);
     fileDialog.exec();
     fileDialog.hide();
 }
 
-void CFileBrowser::saveFileToDeviceSelected(QString filename){
+void CFileBrowser::saveFileToDeviceSelected(QStringList filenames){
     CNotify notify;
 
-    if( copyFileToDevice(link(), filename, ui->tree->currentItem()->text(1)) == false ){
+    if( copyFilesToDevice(link(), filenames, ui->tree->currentItem()->text(1)) == false ){
         notify.execLinkError(link_errno);
     } else {
         notify.updateStatus("File Saved");
@@ -190,7 +190,22 @@ void CFileBrowser::saveFileToDeviceSelected(QString filename){
     }
 }
 
-bool CFileBrowser::copyFileToDevice(CLink * d, QString filename, QString targetDir){
+bool CFileBrowser::copyFilesToDevice(CLink * d,
+                                    const QStringList & filenames,
+                                    const QString & targetDir){
+    int i;
+    for(i=0; i < filenames.size(); i++){
+        QString filename(filenames.at(i));
+        if( copyFileToDevice(d, filename, targetDir) == false ){
+            return false;
+        }
+
+    }
+    return true;
+}
+
+
+bool CFileBrowser::copyFileToDevice(CLink * d, const QString & filename, const QString & targetDir){
     QList<QString> pathList;
     int err;
     QString target;
