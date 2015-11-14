@@ -15,6 +15,8 @@ win64:DEFINES += __WINDOWS __win64
 win32:QMAKE_CXXFLAGS=-mno-ms-bitfields
 win64:QMAKE_CXXFLAGS=-mno-ms-bitfields
 
+macx:QMAKE_MAC_SDK = macosx10.11
+
 
 SOURCES += main.cpp\
         caoslink.cpp \

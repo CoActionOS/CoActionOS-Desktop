@@ -11,7 +11,7 @@
 #include "CCompress.h"
 #include "CNotify.h"
 
-static bool updateProgress(int prog, int max){
+static bool updateProgress(void * context, int prog, int max){
     CNotify::updateProgress(prog,max);
     qApp->processEvents();
     return false; //do not abort
@@ -183,7 +183,7 @@ void CKernelInstaller::on_installButton_clicked()
     CNotify::updateProgress(0, 0, false);
 
     if( link()->updateOS((ui->installer->configurationPath() + "/" + projectName + ".bin").toStdString(),
-                         ui->verifyInstallCheckBox->isChecked(), updateProgress) < 0 ){
+                         ui->verifyInstallCheckBox->isChecked(), updateProgress, 0) < 0 ){
         notify.execError(errorMessage());
     }
 

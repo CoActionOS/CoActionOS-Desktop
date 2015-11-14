@@ -16,7 +16,7 @@
 #include "CNotify.h"
 #include "CFont.h"
 
-static bool updateProgress(int prog, int max){
+static bool updateProgress(void * context, int prog, int max){
     CNotify::updateProgress(prog,max);
     qApp->processEvents();
     return false; //do not abort
@@ -237,7 +237,7 @@ bool CFileBrowser::copyFileToDevice(CLink * d, const QString & filename, const Q
         free(buffer);
     } else {
         qDebug("Copy file");
-        err = d->cp(filename.toStdString(), target.toStdString(), 0777, true, updateProgress);
+        err = d->cp(filename.toStdString(), target.toStdString(), 0777, true, updateProgress, 0);
     }
     if ( err < 0 ){
         qDebug("Err is %d %d", err, link_errno);
