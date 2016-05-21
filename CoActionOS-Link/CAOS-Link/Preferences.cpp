@@ -15,7 +15,7 @@
 Preferences::Preferences(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::Preferences),
-  settings(QSettings::UserScope, "CoActionOS Link")
+  settings(QSettings::UserScope, "Stratify Link")
 {
   qDebug("Preferences Init");
   initialized = false;

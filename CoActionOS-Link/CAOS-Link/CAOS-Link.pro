@@ -6,7 +6,7 @@
 
 
 QT       += widgets
-TARGET = "CoActionOS-Link"
+TARGET = "Stratify-Link"
 TEMPLATE = app
 
 DEFINES += __link

@@ -25,7 +25,7 @@
 #ifndef CAOSLINK_H
 #define CAOSLINK_H
 
-#define COACTIONOS_LINK_VERSION "1.6.1"
+#define COACTIONOS_LINK_VERSION "1.6.3"
 #include <QMainWindow>
 #include <QString>
 #include <QProgressBar>
@@ -47,7 +47,7 @@ public:
     explicit Caoslink(QWidget *parent = 0);
     ~Caoslink();
 
-    static QString appName(){ return "CoActionOS Link"; }
+    static QString appName(){ return "Stratify Link"; }
 
 private:
     Ui::Caoslink *ui;

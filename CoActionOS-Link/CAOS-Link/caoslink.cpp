@@ -33,9 +33,9 @@ Caoslink::Caoslink(QWidget *parent) :
     notify.updateStatus("");
     qDebug("CAOS Init");
     CLink * linkDevice;
-    QCoreApplication::setOrganizationName("CoActionOS, Inc");
-    QCoreApplication::setOrganizationDomain("coactionos.com");
-    QCoreApplication::setApplicationName("CoActionOS Link");
+    QCoreApplication::setOrganizationName("Stratify Labs, Inc");
+    QCoreApplication::setOrganizationDomain("StratifyLabs.co");
+    QCoreApplication::setApplicationName("Stratify Link");
     QCoreApplication::setApplicationVersion(COACTIONOS_LINK_VERSION);
 
     CFont::init();
