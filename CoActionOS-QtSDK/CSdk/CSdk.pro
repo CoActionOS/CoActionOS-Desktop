@@ -88,7 +88,7 @@ OTHER_FILES += \
     CStyle.css
 
 unix {
-	INSTALLBASE = /Applications/StratifyLabs-SDK/Tools/gcc
+    INSTALLBASE = /Applications/StratifyLabs-SDK/Tools/gcc
     QMAKE_INSTALL_FILE = install -m 644 -p
     QMAKE_LFLAGS_SONAME = -Wl,-install_name,$$INSTALLBASE/lib/
 }
