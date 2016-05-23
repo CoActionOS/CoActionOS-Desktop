@@ -46,16 +46,15 @@ FORMS    += caoslink.ui \
 macx:ICON = coactionoslink.icns
 
 unix {
-    INSTALLPATH = /usr/local/CoActionOS
-    INCLUDEPATH = /usr/local/include
+	INSTALLPATH = /Applications/StratifyLabs-SDK/Tools/gcc
 }
 
 win32 {
-    INSTALLPATH = c:/CoActionOS-Compiler/CoActionOS
+	INSTALLPATH = c:/StratifyLabs-SDK/Tools/gcc
     RC_FILE += app.rc
 }
 
-LIBS += -L$$INSTALLPATH/lib -lCSdk -lapp_CoActionOS_link -lcaos_link
+LIBS += -L$$INSTALLPATH/lib -lCSdk -lapp -lstratify_link
 
 INCLUDEPATH += $$INSTALLPATH/include
 

@@ -3,8 +3,8 @@
 
 #include <QTimer>
 #include <QFile>
-#include <dev/mem.h>
-#include <applib/Device.hpp>
+#include <iface/dev/mem.h>
+#include <stfy/Hal.hpp>
 
 #include "CKernelSettings.h"
 #include "CFont.h"
@@ -222,13 +222,13 @@ void CKernelInstaller::resizeEvent(QResizeEvent * event){
 void CKernelInstaller::on_uploadButton_clicked()
 {
 
-    Device mem;
+    Phy mem;
     int offset;
     int ret;
     char buffer[1024];
     mem_attr_t attr;
 
-    mem.sethandle(link()->handle());
+    mem.set_driver(link()->driver());
 
     if( mem.open("/dev/mem0", LINK_O_RDWR) < 0 ){
         CNotify::updateStatus("Failed to open /dev/mem");

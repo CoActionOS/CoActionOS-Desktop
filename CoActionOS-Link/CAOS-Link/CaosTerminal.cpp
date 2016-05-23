@@ -10,8 +10,8 @@
 
 #include <CSdk/CNotify.h>
 #include <CSdk/CFont.h>
-#include <dev/fifo.h>
-#include <dev/sys.h>
+#include <iface/dev/fifo.h>
+#include <iface/dev/sys.h>
 
 #include "caoslink.h"
 #include "Preferences.h"

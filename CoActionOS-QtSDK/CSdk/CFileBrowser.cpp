@@ -9,9 +9,9 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QStringList>
-#include <hwpl.h>
+#include <mcu/mcu.h>
 #include <sys/stat.h>
-#include <applib/Appfs.hpp>
+#include <stfy/Sys.hpp>
 
 #include "CNotify.h"
 #include "CFont.h"
@@ -232,7 +232,7 @@ bool CFileBrowser::copyFileToDevice(CLink * d, const QString & filename, const Q
                             buffer,
                             nbyte,
                             "/app",
-                            d->handle());
+                            d->driver());
         qDebug("Appfs returned %d", err);
         free(buffer);
     } else {

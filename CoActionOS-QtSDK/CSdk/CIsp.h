@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QTimer>
-#include <applib/Uart.hpp>
+#include <stfy/Hal.hpp>
 
 #include "CLinkPtr.h"
 

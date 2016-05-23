@@ -13,6 +13,7 @@
 #include <QFileInfo>
 #include <CSdk/CEventFilter.h>
 
+
 CaosInterface::CaosInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CaosInterface){

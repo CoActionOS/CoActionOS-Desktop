@@ -3,12 +3,11 @@
 
 #include <QList>
 #include <QTableWidgetItem>
-
-#include <dev/sys.h>
-
-#include "caoslink.h"
+#include <iface/dev/sys.h>
 #include <CSdk/CFont.h>
 #include <CSdk/CNotify.h>
+
+#include "caoslink.h"
 
 
 #define UPDATE_IN_MS (500)

@@ -88,13 +88,13 @@ OTHER_FILES += \
     CStyle.css
 
 unix {
-    INSTALLBASE = /usr/local/CoActionOS
+	INSTALLBASE = /Applications/StratifyLabs-SDK/Tools/gcc
     QMAKE_INSTALL_FILE = install -m 644 -p
     QMAKE_LFLAGS_SONAME = -Wl,-install_name,$$INSTALLBASE/lib/
 }
 
 win32 {
-    INSTALLBASE = c:/CoActionOS-Compiler/CoActionOS
+	INSTALLBASE = c:/StratifyLabs-SDK/Tools/gcc
 }
 
 target.path = $$INSTALLBASE/lib

@@ -8,7 +8,7 @@
 
 #include <QWidget>
 #include <QTimer>
-#include <hwpl/Link.h>
+#include <Link.h>
 #include <CSdk/CLinkPtr.h>
 #include <CSdk/CDebug.h>
 #include <CSdk/CEventFilter.h>

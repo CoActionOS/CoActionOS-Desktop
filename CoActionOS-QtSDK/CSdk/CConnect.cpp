@@ -174,7 +174,7 @@ void CConnect::refresh(){
 void CConnect::refreshSerialno(){
   unsigned int i;
   vector<string> devices;
-  devices = Link::listDevices(64);
+  devices = Link::listDevices(clink_.driver(), 64);
   ui->snComboBox->clear();
   for(i = 0; i < devices.size(); i++){
       ui->snComboBox->addItem( QString( devices[i].c_str() ) );

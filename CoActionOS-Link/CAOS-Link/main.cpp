@@ -6,7 +6,7 @@
 #include <QtWidgets/QApplication>
 #include <QFile>
 #include "caoslink.h"
-#include <link_protocol.h>
+#include <iface/link.h>
 
 int main(int argc, char *argv[])
 {

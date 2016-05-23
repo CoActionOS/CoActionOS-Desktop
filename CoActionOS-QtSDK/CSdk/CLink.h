@@ -5,7 +5,7 @@
 #include <QString>
 #include <QStringList>
 #include <ctime>
-#include <hwpl/Link.h>
+#include <Link.h>
 
 class CLink : public QObject, public Link
 {
@@ -44,7 +44,7 @@ public:
 
     int getNumDevices(void){
         vector<string> list;
-        list = Link::listDevices();
+        list = Link::listDevices(driver());
         return list.size();
     }
 

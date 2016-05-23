@@ -1,11 +1,8 @@
 #include "CIsp.h"
 #include "ui_CIsp.h"
 
-
-#include <applib/Pin.hpp>
-#include <applib/Uart.hpp>
-#include <applib/Isp.hpp>
-#include <applib/LpcIsp.hpp>
+#include <stfy/Hal.hpp>
+#include <stfy/Isp.hpp>
 
 #include "CNotify.h"
 #include "CFont.h"
@@ -225,14 +222,14 @@ void CIsp::resetTarget(void){
   CNotify notify;
 
   Pin pio0(ui->resetComboBox->currentIndex(), ui->resetSpinBox->value());
-  pio0.sethandle(link()->handle());
+  pio0.set_driver(link()->driver());
 
   if( pio0.init(Pin::OUTPUT) < 0 ){
       notify.execError("Failed to init reset pin");
       return;
     }
 
-  if( pio0.clr() < 0 ){
+  if( pio0.clear() < 0 ){
       notify.execError("Failed to clear reset pin");
       pio0.close();
       return;
@@ -244,7 +241,7 @@ void CIsp::resetTarget(void){
       return;
     }
 
-  if( pio0.setinput() < 0 ){
+  if( pio0.set_attr(Pin::INPUT) < 0 ){
       notify.execError("Failed to clear reset pin");
       pio0.close();
       return;
@@ -291,7 +288,7 @@ void CIsp::programTarget(void)
   int ret;
   CNotify notify;
   QString filename;
-  Isp * current;
+  LpcIsp * current;
   CSettings s(CSettings::userScope());
 
   ui->cancelButton->setEnabled(true);
@@ -316,9 +313,9 @@ void CIsp::programTarget(void)
   Uart uart(ui->uartComboBox->currentIndex());
   Pin pio0(ui->resetComboBox->currentIndex(), ui->resetSpinBox->value());
   Pin pio1(ui->ispreqComboBox->currentIndex(), ui->ispreqSpinBox->value());
-  uart.sethandle( link()->handle() );
-  pio0.sethandle( link()->handle() );
-  pio1.sethandle( link()->handle() );
+  uart.set_driver( link()->driver() );
+  pio0.set_driver( link()->driver() );
+  pio1.set_driver( link()->driver() );
   thisptr = this;
 
   LpcIsp lpc(&uart, &pio0, &pio1);
@@ -399,6 +396,7 @@ void CIsp::on_startTerminalButton_clicked()
     int parity;
     int stopBits;
     //open the terminal
+
     if( link()->isConnected() == false ){
         CNotify::updateStatus("Host is not connected");
         return;
@@ -422,7 +420,7 @@ void CIsp::on_startTerminalButton_clicked()
         }
 
         CNotify::updateStatus("Set handle");
-        terminalUart->sethandle(link()->handle());
+        terminalUart->set_driver(link()->driver());
 
         if( ui->parity->isChecked() ){
             if( ui->parityButton->isChecked() ){
@@ -439,7 +437,6 @@ void CIsp::on_startTerminalButton_clicked()
         } else {
             stopBits = Uart::STOP2;
         }
-
 
         if( terminalUart->open(Uart::NONBLOCK) < 0 ){
             CNotify::updateStatus("Failed to open UART");
@@ -459,7 +456,7 @@ void CIsp::on_startTerminalButton_clicked()
             terminalUart = 0;
         } else {
 
-            if( terminalUart->getattr(&attr) <  0 ){
+            if( terminalUart->attr(&attr) <  0 ){
                 CNotify::updateStatus("failed to get UART attr");
             } else {
                 CNotify::updateStatus("Uart: " +
