@@ -41,6 +41,7 @@ Caoslink::Caoslink(QWidget *parent) :
     CFont::init();
     link_set_debug(100);
     ui->setupUi(this);
+    ui->connectWidget->clink()->setDriver(driver.driver());
     resize( Preferences::windowSize() );
 
     linkDevice = ui->connectWidget->clink();
@@ -51,6 +52,7 @@ Caoslink::Caoslink(QWidget *parent) :
     connect(linkDevice, SIGNAL(reconnectSignal(bool)), ui->connectWidget, SLOT(connectRequested(bool)));
     ui->connectWidget->setObjectName("connectWidget");
     ui->statusBar->setObjectName("statusBar");
+
 
     QFile file(":/data/CStyle.css");
     if(file.open(QFile::ReadOnly)) {

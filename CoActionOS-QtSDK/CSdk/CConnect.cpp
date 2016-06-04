@@ -47,7 +47,7 @@ CConnect::CConnect(QWidget *parent) :
   ui->bootloaderStatusLabel->setText("Bootloader");
   ui->bootloaderStatusLabel->setObjectName("blackLabel");
 
-  this->refreshSerialno();
+  //this->refreshSerialno();
 
   periodic.setInterval(500);
   connect(&periodic, SIGNAL(timeout()), this, SLOT(timeout()));

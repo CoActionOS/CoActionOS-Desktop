@@ -126,6 +126,7 @@ void About::refreshKernel()
     //load the version, signature, and CPU speed
     int fd;
     sys_attr_t attr;
+
     fd = link()->open("/dev/sys", LINK_O_RDWR);
     if( fd < 0 ){
         CNotify::updateStatus("Failed to load kernel info");

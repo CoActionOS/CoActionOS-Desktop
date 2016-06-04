@@ -31,6 +31,9 @@
 #include <QProgressBar>
 #include <QStatusBar>
 
+
+#include "SLinkDriver.h"
+
 namespace Ui {
     class Caoslink;
 }
@@ -56,6 +59,7 @@ private:
     QString keyMainWindowSize(){ return "KEY_MAINWINDOWSIZE"; }
 
 
+    SLinkDriver driver;
 private slots:
     void notified(int severity);
     void notificationDismissed(int v);

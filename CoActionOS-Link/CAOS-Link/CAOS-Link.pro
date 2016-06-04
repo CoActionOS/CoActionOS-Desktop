@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 
-QT       += widgets
+QT       += widgets serialport
 TARGET = "Stratify-Link"
 TEMPLATE = app
 
@@ -24,14 +24,16 @@ SOURCES += main.cpp\
     CaosTerminal.cpp \
     About.cpp \
     Monitor.cpp \
-    Preferences.cpp
+    Preferences.cpp \
+    SLinkDriver.cpp
 
 HEADERS  += caoslink.h \
     CaosInterface.h \
     CaosTerminal.h \
     About.h \
     Monitor.h \
-    Preferences.h
+    Preferences.h \
+    SLinkDriver.h
 
 FORMS    += caoslink.ui \
     CaosTerminal.ui \

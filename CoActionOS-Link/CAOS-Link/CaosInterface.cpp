@@ -113,6 +113,7 @@ void CaosInterface::setLink(CLink * d){
     ui->aboutTab->setLink(d);
     ui->tabs->setCurrentIndex( Preferences::currentTab().toInt() );
     on_tabs_currentChanged( ui->tabs->currentIndex() );
+
 }
 
 void CaosInterface::installKernelRequest(void){
