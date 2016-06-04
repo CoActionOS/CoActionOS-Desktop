@@ -21,7 +21,7 @@ public:
     ~CConnect();
 
     void refresh(void);
-    CLink * clink(){ return &clink_; }
+    CLink * clink(){ return &m_clink; }
 
 public slots:
     void connectRequested(bool suppressError);
@@ -40,7 +40,7 @@ private:
     void resizeEvent(QResizeEvent * event);
     Ui::CConnect *ui;
     bool errorSuppression;
-    CLink clink_;
+    CLink m_clink;
     QTimer periodic;
 };
 

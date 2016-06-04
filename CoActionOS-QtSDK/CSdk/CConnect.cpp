@@ -16,7 +16,7 @@ CConnect::CConnect(QWidget *parent) :
 {
   QFont font;
   ui->setupUi(this);
-  connect(&clink_, SIGNAL(linked(bool)), this, SLOT(connected(bool)));
+  connect(&m_clink, SIGNAL(linked(bool)), this, SLOT(connected(bool)));
 
   ui->frame->setObjectName("connectFrame");
 
@@ -69,7 +69,7 @@ void CConnect::connected(bool status){
       } else {
           CNotify::updateStatus("Connected to anonymous");
       }
-      if(clink_.isBootloader() == true ){
+      if(m_clink.is_bootloader() == true ){
           ui->bootloaderStatusLabel->setVisible(true);
           CNotify::updateStatus("Connected device is bootloader");
         } else{
@@ -102,8 +102,8 @@ void CConnect::connected(bool status){
 
 void CConnect::timeout(){
   CNotify notify;
-  if( (clink_.isConnected() == false) && (ui->connectButton->isEnabled() == false) ){
-      clink_.exit();
+  if( (m_clink.isConnected() == false) && (ui->connectButton->isEnabled() == false) ){
+      m_clink.exit();
       notify.execError(ui->snComboBox->currentText() + " unexpectedly disconnected");
       CNotify::updateStatus(ui->snComboBox->currentText() + " unexpectedly disconnected");
     }
@@ -124,7 +124,7 @@ void CConnect::on_connectButton_clicked(){
   QString serialNumber;
 
   qDebug("Connect Clicked");
-  if (clink_.connected() ){
+  if (m_clink.get_is_connected() ){
       //Already Connected
       ui->snComboBox->setEnabled(false);
       ui->disconnectButton->setEnabled(true);
@@ -141,14 +141,14 @@ void CConnect::on_connectButton_clicked(){
           serialNumber = ui->snComboBox->currentText();
       }
 
-      err = clink_.init(serialNumber.toStdString());
+      err = m_clink.init(serialNumber.toStdString());
 
       qDebug("Connected? %d", err);
       if ( err != 0 ){
           //Error connecting
           ui->connectStatusLabel->setText("Disconnected");
           if ( errorSuppression == false ){
-              notify.execError(QString(clink_.errorMessage().c_str()));
+              notify.execError(QString(m_clink.error_message().c_str()));
             }
           return;
 
@@ -160,7 +160,7 @@ void CConnect::on_connectButton_clicked(){
 }
 
 void CConnect::refresh(){
-  if (clink_.connected() == true ){
+  if (m_clink.get_is_connected() == true ){
 
     } else {
       if ( ui->connectButton->text() == "Disconnect" ){
@@ -174,7 +174,7 @@ void CConnect::refresh(){
 void CConnect::refreshSerialno(){
   unsigned int i;
   vector<string> devices;
-  devices = Link::listDevices(clink_.driver(), 64);
+  devices = Link::get_device_list(m_clink.driver(), 64);
   ui->snComboBox->clear();
   for(i = 0; i < devices.size(); i++){
       ui->snComboBox->addItem( QString( devices[i].c_str() ) );
@@ -191,11 +191,11 @@ void CConnect::on_disconnectButton_clicked()
 {
   CNotify notify;
   int err;
-  if (clink_.connected() == true ){
+  if (m_clink.get_is_connected() == true ){
       //Connected and need to disconnect
       ui->connectStatusLabel->setText("Disconnecting...");
       qApp->processEvents();
-      err =clink_.exit();
+      err =m_clink.exit();
       if ( err != 0 ){
           //Error disconnecting
           if ( errorSuppression == false ){

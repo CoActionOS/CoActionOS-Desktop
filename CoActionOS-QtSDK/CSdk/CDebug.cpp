@@ -282,7 +282,7 @@ void CDebug::connected(bool arg){
     CNotify notify;
 
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             arg = false;
         }
     }
@@ -524,7 +524,7 @@ void CDebug::traceTimerExpired(void){
     QColor fg, bg;
 
     //read the trace events (if available)
-    if( link()->connected() == false ){
+    if( link()->get_is_connected() == false ){
         traceTimer.stop();
         return;
     }

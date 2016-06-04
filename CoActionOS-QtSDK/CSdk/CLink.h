@@ -12,7 +12,7 @@ class CLink : public QObject, public Link
     Q_OBJECT
 public:
     CLink() : Link(){}
-    bool isConnected(){ return connected(); }
+    bool isConnected(){ return get_is_connected(); }
 
     static void setDebug(int value){ link_set_debug(value); }
     static void setDebugCallback(void (*callback)(link_debug_context_t*)){
@@ -44,7 +44,7 @@ public:
 
     int getNumDevices(void){
         vector<string> list;
-        list = Link::listDevices(driver());
+        list = Link::get_device_list(driver());
         return list.size();
     }
 
@@ -81,7 +81,7 @@ public:
     int resetBootloader(){
         emit linked(false);
         qApp->processEvents();
-        return Link::resetBootloader();
+        return Link::reset_bootloader();
     }
 
 

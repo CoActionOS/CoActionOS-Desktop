@@ -24,8 +24,7 @@ SOURCES += main.cpp\
     CaosTerminal.cpp \
     About.cpp \
     Monitor.cpp \
-    Preferences.cpp \
-    SLinkDriver.cpp
+    Preferences.cpp
 
 HEADERS  += caoslink.h \
     CaosInterface.h \

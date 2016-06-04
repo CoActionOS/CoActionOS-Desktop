@@ -78,7 +78,7 @@ void CaosTerminal::setLink(CLink * d){
 void CaosTerminal::linked(bool arg1){
 
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             arg1 = false;
         }
     }
@@ -133,7 +133,7 @@ void CaosTerminal::openTerminal(){
                 return;
             }
 
-            if ( link()->isBootloader() > 0 ){
+            if ( link()->is_bootloader() > 0 ){
                 return;
             }
 

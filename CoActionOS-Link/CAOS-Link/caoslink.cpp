@@ -41,7 +41,7 @@ Caoslink::Caoslink(QWidget *parent) :
     CFont::init();
     link_set_debug(100);
     ui->setupUi(this);
-    ui->connectWidget->clink()->setDriver(driver.driver());
+    ui->connectWidget->clink()->set_driver(driver.driver());
     resize( Preferences::windowSize() );
 
     linkDevice = ui->connectWidget->clink();

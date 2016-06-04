@@ -270,11 +270,11 @@ void CaosInterface::runApplicationInTerminal(QString path){
     }
 
     info.setFile(path);
-    if( (pid = link()->isExecuting(info.fileName().toStdString())) >= 0 ){
+    if( (pid = link()->get_is_executing(info.fileName().toStdString())) >= 0 ){
         if( notify.execPrompt("Kill and Re-run?") == false ){
             return;
         } else {
-            if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+            if( link()->kill_pid(pid, LINK_SIGTERM) < 0 ){
                 notify.execError("Failed to Kill program");
                 return;
             }
@@ -282,7 +282,7 @@ void CaosInterface::runApplicationInTerminal(QString path){
     }
 
     ui->terminalTab->openTerminal();
-    err = link()->runApp( path.toStdString() );
+    err = link()->run_app( path.toStdString() );
 
 
     if ( err >= 0 ){

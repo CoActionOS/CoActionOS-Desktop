@@ -90,7 +90,7 @@ void CFileBrowser::setLink(CLink * d){
 void CFileBrowser::connected(bool value){
 
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             value = false;
         }
     }
@@ -140,7 +140,7 @@ void CFileBrowser::refresh(void){
     //Update the tree
     CNotify notify;
 
-    if ( link()->connected() == false ){
+    if ( link()->get_is_connected() == false ){
         //Error::showNotConnected();
         return;
     }
@@ -237,7 +237,7 @@ bool CFileBrowser::copyFileToDevice(CLink * d, const QString & filename, const Q
         free(buffer);
     } else {
         qDebug("Copy file");
-        err = d->cp(filename.toStdString(), target.toStdString(), 0777, true, updateProgress, 0);
+        err = d->copy(filename.toStdString(), target.toStdString(), 0777, true, updateProgress, 0);
     }
     if ( err < 0 ){
         qDebug("Err is %d %d", err, link_errno);
@@ -293,7 +293,7 @@ void CFileBrowser::loadFileFromDeviceSelected(QString filename){
 
     if ( path.count() ){
         dest = filename + "/" + path[ path.count() -1 ];
-        err = link()->cp(src.toStdString(), dest.toStdString(), 0, false, updateProgress);
+        err = link()->copy(src.toStdString(), dest.toStdString(), 0, false, updateProgress);
         if ( err < 0 ){
             notify.execLinkError(link_errno);
         }

@@ -402,7 +402,7 @@ void CIsp::on_startTerminalButton_clicked()
         return;
     }
 
-    if( link()->isBootloader() == true ){
+    if( link()->is_bootloader() == true ){
         CNotify::updateStatus("Host is a bootloader");
         return;
     }

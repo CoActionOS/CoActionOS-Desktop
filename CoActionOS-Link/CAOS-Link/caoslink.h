@@ -32,7 +32,7 @@
 #include <QStatusBar>
 
 
-#include "SLinkDriver.h"
+#include <iface/SLinkDriver.h>
 
 namespace Ui {
     class Caoslink;

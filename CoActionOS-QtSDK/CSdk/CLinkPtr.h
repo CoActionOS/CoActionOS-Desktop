@@ -12,7 +12,7 @@ public:
   CLinkPtr() : link_(0) {}
   virtual void setLink(CLink * l){ link_ = l; }
   CLink * link(){ return link_; }
-  QString errorMessage(void){return QString::fromStdString(link()->errorMessage()); }
+  QString errorMessage(void){return QString::fromStdString(link()->error_message()); }
 
 private:
   CLink * link_;

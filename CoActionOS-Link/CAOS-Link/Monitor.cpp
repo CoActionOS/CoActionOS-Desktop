@@ -125,7 +125,7 @@ void Monitor::setLink(CLink * d){
 
 void Monitor::connected(bool value){
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             value = false;
         }
     }
@@ -452,7 +452,7 @@ int Monitor::signalProcess(int signo){
 
         pid = item->text().replace(" (thread)", "").toInt();
         if( pid != 0 ){
-            if ( (err = link()->killPid(pid, signo)) < 0 ){
+            if ( (err = link()->kill_pid(pid, signo)) < 0 ){
                 notify.execError(errorMessage());
             } else {
                 ui->table->removeRow(row);

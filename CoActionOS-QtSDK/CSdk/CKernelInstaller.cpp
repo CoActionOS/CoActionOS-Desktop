@@ -113,7 +113,7 @@ void CKernelInstaller::on_installButton_clicked()
 
         ui->installButton->setEnabled(false);
 
-        if ( link()->isBootloader() == false ){
+        if ( link()->is_bootloader() == false ){
             CNotify::updateStatus("Waiting for bootloader");
             CNotify::updateProgress(0, 0);
 
@@ -182,7 +182,7 @@ void CKernelInstaller::on_installButton_clicked()
     CNotify::updateStatus("Installing kernel");
     CNotify::updateProgress(0, 0, false);
 
-    if( link()->updateOS((ui->installer->configurationPath() + "/" + projectName + ".bin").toStdString(),
+    if( link()->update_os((ui->installer->configurationPath() + "/" + projectName + ".bin").toStdString(),
                          ui->verifyInstallCheckBox->isChecked(), updateProgress, 0) < 0 ){
         notify.execError(errorMessage());
     }

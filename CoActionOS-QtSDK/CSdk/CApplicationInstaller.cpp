@@ -86,7 +86,7 @@ void CApplicationInstaller::setLink(CLink * d){
 void CApplicationInstaller::connected(bool arg1){
 
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             arg1 = false;
         }
     }
@@ -131,7 +131,7 @@ void CApplicationInstaller::on_installButton_clicked()
 {
     int i;
     int total;
-    if ( link()->connected() == false ){
+    if ( link()->get_is_connected() == false ){
         return;
     }
 
@@ -163,20 +163,20 @@ void CApplicationInstaller::on_uninstallButton_clicked()
     int pid;
 
     if( CNotify::notification() != 0 ){
-        if( (pid = link()->isExecuting(projectName.toStdString())) >= 0 ){
+        if( (pid = link()->get_is_executing(projectName.toStdString())) >= 0 ){
             connect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(uninstallPrompt(int)));
             notify.execPrompt("Kill " + ui->installer->project() + "?");
             return;
         }
     } else {
         //ask to kill running process
-        if( (pid = link()->isExecuting(projectName.toStdString())) >= 0 ){
+        if( (pid = link()->get_is_executing(projectName.toStdString())) >= 0 ){
             if( notify.execPrompt("Kill running process") == 0 ){
                 CNotify::updateStatus("Uninstalled aborted");
                 return;
             }
 
-            if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+            if( link()->kill_pid(pid, LINK_SIGTERM) < 0 ){
                 notify.execLinkError(link_errno);
                 return;
             }
@@ -191,8 +191,8 @@ void CApplicationInstaller::uninstallPrompt(int v){
     CNotify notify;
     disconnect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(uninstallPrompt(int)));
     if( v != 0 ){
-        pid = link()->isExecuting(ui->installer->project().toStdString());
-        if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+        pid = link()->get_is_executing(ui->installer->project().toStdString());
+        if( link()->kill_pid(pid, LINK_SIGTERM) < 0 ){
             notify.execLinkError(link_errno);
             return;
         }
@@ -290,7 +290,7 @@ int CApplicationInstaller::install(void){
 
     //kill program if it is running
     qDebug("Check if %s is running\n",appfsFile.hdr.name);
-    pid = link()->isExecuting(appfsFile.hdr.name);
+    pid = link()->get_is_executing(appfsFile.hdr.name);
     if( pid >= 0 ){
 
         if( CNotify::notification() != 0 ){
@@ -304,7 +304,7 @@ int CApplicationInstaller::install(void){
             return -1;
         } else {
             qDebug("KILL %d", pid);
-            if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+            if( link()->kill_pid(pid, LINK_SIGTERM) < 0 ){
                 notify.execError("Failed to kill process");
                 return -1;
             }
@@ -324,8 +324,8 @@ void CApplicationInstaller::installPrompt(int v){
     CNotify notify;
     disconnect(CNotify::notification(), SIGNAL(dismissed(int)), this, SLOT(installPrompt(int)));
     if( v != 0 ){
-        pid = link()->isExecuting(ui->installer->project().toStdString());
-        if( link()->killPid(pid, LINK_SIGTERM) < 0 ){
+        pid = link()->get_is_executing(ui->installer->project().toStdString());
+        if( link()->kill_pid(pid, LINK_SIGTERM) < 0 ){
             notify.execLinkError(link_errno);
             return;
         }

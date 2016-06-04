@@ -55,7 +55,7 @@ void About::setLink(CLink *d){
 
 void About::connected(bool value){
     if( link() != 0 ){
-        if( link()->isBootloader() == true ){
+        if( link()->is_bootloader() == true ){
             value = false;
         }
     }
@@ -82,7 +82,7 @@ void About::connected(bool value){
         ui->coactionosTimeOfDayLabel->setText(CFont::icomoon(CFont::iconInfoSign()) + " Not Available");
     } else {
         //start the timer
-        if( !link()->isBootloader() ){
+        if( !link()->is_bootloader() ){
             refreshKernel();
             updateTimeOfDay();
             timeTimer.setInterval(1000);
@@ -95,7 +95,7 @@ void About::updateTimeOfDay(void){
     struct tm gt;
     QString theTime;
     if( this->isVisible() ){
-        if( link()->getTime(&gt) == 0 ){
+        if( link()->get_time(&gt) == 0 ){
             //check to see if the time is valid
             if( (gt.tm_year > 20) && (gt.tm_year < 2000) &&
                     (gt.tm_mday > 0) && (gt.tm_mday < 32) &&
@@ -164,7 +164,7 @@ void About::on_coactionosTimeButton_clicked()
     time(&t);
     gt = localtime(&t);
 
-    if( link()->setTime(gt) < 0 ){
+    if( link()->set_time(gt) < 0 ){
         //error
         return;
     }
